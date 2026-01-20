@@ -31,8 +31,8 @@ program: EOF;
 
 // White spaces and comments
 WS : [ \t\r\n\f]+ -> skip ; // skip spaces, tabs
-BLOCK_CMT: '/*' .* '*/' -> skip;  // skip block comments
-LINE_CMT: '//' .* '\n' -> skip;  // skip line comments
+BLOCK_CMT: '/*' .*? '*/' -> skip;  // skip block comments
+LINE_CMT: '//' .*? '\n' -> skip;  // skip line comments
 
 // Keywords
 AUTO: 'auto';
@@ -82,9 +82,34 @@ RPAREN: ')';
 SEMI_COLON: ';';
 COMMA: ',';
 
+// Literals
+INT_LIT: '-'? [0-9]+;
+FLOAT_LIT: '-'? (
+      [0-9]+ '.' [0-9]+ ([eE] [+-]? [0-9]+)?  // 1.2, 123.123, 0.12e-421
+      | '.' [0-9]+ ([eE] [+-]? [0-9]+)?       // .2, .2332, .12E-333
+      | [0-9]* [eE]? [0-9]+                   // 2e-1, 2E+123, e-123  *** ATTENTION!!! ***
+);
+
+STRING_LIT: '"' (~["\\\r\n] | ESC_SEQ)* '"';
+
+fragment ESC_SEQ: '\\' ["\\bfrnt];  // means: \" \\ \b \f \r \n \t 
+
+BACKSPC: '\b';
+FORMFEED: '\f';
+CARRIAGE: '\r';
+NEWLN: '\n';
+TAB: '\t';
+DOUBLE_QUOTE: '\\"';
+BACKSLASH: '\\';
+
+// Identifiers
+ID: [a-zA-Z_]+ [0-9a-zA-Z_]*;
+
+
+
+ILLEGAL_ESCAPE: '"' (~["\\\r\n] | ESC_SEQ)* '\\' ~["\\bfrnt] '"';  // a backslash followed by an undefined character
+UNCLOSE_STRING: '"' (~["\\\r\n] | ESC_SEQ)* '\\'?;
+
+ERROR_CHAR: .;  // at the end to catch all the undefined characters
 
 // *** LEXER ***
-
-ERROR_CHAR: .;
-ILLEGAL_ESCAPE:.;
-UNCLOSE_STRING:.;
