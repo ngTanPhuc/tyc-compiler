@@ -25,14 +25,14 @@ options{
 }
 
 // TODO: Define grammar rules here
-program: EOF;
+program: EOF; 
 
 // *** LEXER ***
 
 // White spaces and comments
 WS : [ \t\r\n\f]+ -> skip ; // skip spaces, tabs
 BLOCK_CMT: '/*' .*? '*/' -> skip;  // skip block comments
-LINE_CMT: '//' .*? '\n' -> skip;  // skip line comments
+LINE_CMT: '//' ~[\n]* -> skip;  // skip line comments. Means skip everything until \n
 
 // Keywords
 AUTO: 'auto';
@@ -90,12 +90,12 @@ INT_LIT: '-'? [0-9]+;
 //       | [0-9]* [eE]? [0-9]+                   // 2e-1, 2E+123, e-123  *** ATTENTION!!! ***
 // );
 
-FLOAT_LIT: INTEGER '.' (FRAC | EXP)?;
+FLOAT_LIT: INTEGER FRAC | INTEGER EXP | INTEGER FRAC EXP | FRAC;
 fragment INTEGER: [0-9]*;
-fragment FRAC: [0-9]* [1-9];
-fragment EXP: [0-9]* [eE] [-]? [1-9]+ [0-9] [1-9];
+fragment FRAC: '.' [0-9]*;
+fragment EXP: [eE] [+-]? [1-9] [0-9]*;
 
-STRING_LIT: '"' (~["\\\r\n] | ESC_SEQ)* '"';
+STRING_LIT: '"' (~[\\\r\n] | ESC_SEQ)* '"';
 
 fragment ESC_SEQ: '\\' ["\\bfrnt];  // means: \" \\ \b \f \r \n \t 
 
@@ -110,11 +110,8 @@ BACKSLASH: '\\';
 // Identifiers
 ID: [a-zA-Z_] [0-9a-zA-Z_]*;
 
-
-
 ILLEGAL_ESCAPE: '"' (~["\\\r\n] | ESC_SEQ)* '\\' ~["\\bfrnt] '"';  // a backslash followed by an undefined character
 UNCLOSE_STRING: '"' (~["\\\r\n] | ESC_SEQ)* '\\'?;
-
 ERROR_CHAR: .;  // at the end to catch all the undefined characters
 
 // *** LEXER ***
