@@ -95,17 +95,15 @@ fragment INTEGER: [0-9]*;
 fragment FRAC: '.' [0-9]*;
 fragment EXP: [eE] [+-]? [1-9] [0-9]*;
 
-STRING_LIT: '"' (~[\\\r\n] | ESC_SEQ)* '"';
-
-fragment ESC_SEQ: '\\' ["\\bfrnt];  // means: \" \\ \b \f \r \n \t 
-
-BACKSPC: '\b';
-FORMFEED: '\f';
-CARRIAGE: '\r';
-NEWLN: '\n';
-TAB: '\t';
-DOUBLE_QUOTE: '\\"';
-BACKSLASH: '\\';
+// !!! NOTE !!!
+// There's a difference between a newline character (\n) and a literal newline (Enter)
+// "Hello from\nThe other side" -- allowed
+// "Hello from
+// The other side" -- not allowed
+// The lexer sees the "\" and look for the next allowed escape sequence [bfrnt["][\]]. So if you write \b, \n, \t 
+// The lexer will take this as literal
+STRING_LIT: '"' (~["\\\r\n] | ESC_SEQ)* '"';
+fragment ESC_SEQ: '\\' [bfrnt"\\];
 
 // Identifiers
 ID: [a-zA-Z_] [0-9a-zA-Z_]*;

@@ -5,6 +5,7 @@ TODO: Implement 100 test cases for lexer
 
 import pytest
 from tests.utils import Tokenizer
+from src.grammar.lexererr import ErrorToken
 
 
 def test_lexer_placeholder():
@@ -441,18 +442,18 @@ def test_084():
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_085():
-	source = r'"String with a newline\n"'
-	expect = 'STRING_LIT,"String with a newline\n",EOF'
+	source = r'"String with a newline\nA new line"'
+	expect = r'STRING_LIT,"String with a newline\nA new line",EOF'
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_086():
-	source = '"Er sagt \"Hallo Welt\""'
-	expect = 'STRING_LIT,"Er sagt \"Hallo Welt\"",EOF'
+	source = r'"Er sagt \"Hallo Welt\""'
+	expect = r'STRING_LIT,"Er sagt \"Hallo Welt\"",EOF'
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_087():
-	source = '"This is a string with a tab \t"'
-	expect = 'STRING_LIT,"This is a string with a tab \t",EOF'
+	source = r'"This is a string with a tab \t"'
+	expect = r'STRING_LIT,"This is a string with a tab \t",EOF'
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_088():
@@ -461,8 +462,8 @@ def test_088():
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_089():
-	source = '"\r\n"'
-	expect = 'STRING_LIT,"\r\n",EOF'
+	source = r'"\r\n"'
+	expect = r'STRING_LIT,"\r\n",EOF'
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_090():
@@ -477,46 +478,46 @@ def test_091():
 
 # *** ERROR ***
 def test_092():
-	source = ""
+	source = "#"
 	expect = "EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_093():
-	source = ""
+	source = "$"
 	expect = "EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_094():
-	source = ""
+	source = "int @"
 	expect = "EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_095():
-	source = ""
+	source = '"This is unclosed string'
 	expect = "EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_096():
-	source = ""
+	source = '"Another unclosed string but with a newline\n'
 	expect = "EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_097():
-	source = ""
+	source = '"'
 	expect = "EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_098():
-	source = ""
+	source = r'"Content with \"'
 	expect = "EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_099():
-	source = ""
+	source = r'"Hello \a"'
 	expect = "EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_100():
-	source = ""
+	source = r'"Space \ "'
 	expect = "EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
