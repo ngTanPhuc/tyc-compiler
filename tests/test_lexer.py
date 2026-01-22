@@ -479,45 +479,72 @@ def test_091():
 # *** ERROR ***
 def test_092():
 	source = "#"
-	expect = "EOF"
-	assert Tokenizer(source).get_tokens_as_string() == expect
+	try:
+		Tokenizer(source).get_tokens_as_string()
+		assert False, "Expected ErrorToken but no exception was raised"
+	except Exception as e:
+		assert str(e) == "Error Token #"
 
 def test_093():
 	source = "$"
-	expect = "EOF"
-	assert Tokenizer(source).get_tokens_as_string() == expect
+	try:
+		Tokenizer(source).get_tokens_as_string()
+		assert False, "Expected ErrorToken but no exception was raised"
+	except Exception as e:
+		assert str(e) == "Error Token $"
 
 def test_094():
 	source = "int @"
-	expect = "EOF"
-	assert Tokenizer(source).get_tokens_as_string() == expect
+	try:
+		Tokenizer(source).get_tokens_as_string()
+		assert False, "Expected ErrorToken but no exception was raised"
+	except Exception as e:
+		assert str(e) == "Error Token @"
 
 def test_095():
 	source = '"This is unclosed string'
-	expect = "EOF"
-	assert Tokenizer(source).get_tokens_as_string() == expect
+	try:
+		Tokenizer(source).get_tokens_as_string()
+		assert False, "Expected UncloseString but no exception was raised"
+	except Exception as e:
+		assert str(e) == 'Unclosed String: "This is unclosed string'
 
 def test_096():
 	source = '"Another unclosed string but with a newline\n'
-	expect = "EOF"
-	assert Tokenizer(source).get_tokens_as_string() == expect
+	try:
+		Tokenizer(source).get_tokens_as_string()
+		assert False, "Expected UncloseString but no exception was raised"
+	except Exception as e:
+		assert str(e) == 'Unclosed String: "Another unclosed string but with a newline'
 
 def test_097():
 	source = '"'
-	expect = "EOF"
-	assert Tokenizer(source).get_tokens_as_string() == expect
+	try:
+		Tokenizer(source).get_tokens_as_string()
+		assert False, "Expected UncloseString but no exception was raised"
+	except Exception as e:
+		assert str(e) == r'Unclosed String: "'
 
 def test_098():
 	source = r'"Content with \"'
-	expect = "EOF"
-	assert Tokenizer(source).get_tokens_as_string() == expect
+	try:
+		Tokenizer(source).get_tokens_as_string()
+		assert False, "Expected UncloseString but no exception was raised"
+	except Exception as e:
+		assert str(e) == r'Unclosed String: "Content with \"'
 
 def test_099():
 	source = r'"Hello \a"'
-	expect = "EOF"
-	assert Tokenizer(source).get_tokens_as_string() == expect
+	try:
+		Tokenizer(source).get_tokens_as_string()
+		assert False, "Expected UncloseString but no exception was raised"
+	except Exception as e:
+		assert str(e) == r'Illegal Escape In String: "Hello \a"'
 
 def test_100():
 	source = r'"Space \ "'
-	expect = "EOF"
-	assert Tokenizer(source).get_tokens_as_string() == expect
+	try:
+		Tokenizer(source).get_tokens_as_string()
+		assert False, "Expected UncloseString but no exception was raised"
+	except Exception as e:
+		assert str(e) == r'Illegal Escape In String: "Space \ "'
