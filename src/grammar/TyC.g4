@@ -25,10 +25,91 @@ options{
 }
 
 // TODO: Define grammar rules here
-program: EOF;
+program: EOF; 
 
-WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs
+// *** LEXER ***
 
-ERROR_CHAR: .;
-ILLEGAL_ESCAPE:.;
-UNCLOSE_STRING:.;
+// White spaces and comments
+WS : [ \t\r\n\f]+ -> skip ; // skip spaces, tabs
+BLOCK_CMT: '/*' .*? '*/' -> skip;  // skip block comments
+LINE_CMT: '//' ~[\n]* -> skip;  // skip line comments. Means skip everything until \n
+
+// Keywords
+AUTO: 'auto';
+BREAK: 'break';
+CASE: 'case';
+CONTINUE: 'continue';
+DEFAULT: 'default';
+ELSE: 'else';
+FLOAT: 'float';
+FOR: 'for';
+IF: 'if';
+INT: 'int';
+RETURN: 'return';
+STRING: 'string';
+STRUCT: 'struct';
+SWITCH: 'switch';
+VOID: 'void';
+WHILE: 'while';
+
+// Operators
+ADD: '+';
+SUB: '-';
+MUL: '*';
+DIV: '/';
+MOD: '%';
+EQUAL: '==';
+NOT_EQUAL: '!=';
+LESS: '<';
+GREATER: '>';
+LESS_EQUAL: '<=';
+GREATER_EQUAL: '>=';
+OR: '||';
+AND: '&&';
+NOT: '!';
+INCREMENT: '++';
+DECREMENT: '--';
+ASSIGN: '=';
+MEMBER_ACCESS: '.';
+
+// Separators
+LSQUARE_BR: '[';
+RSQUARE_BR: ']';
+LCURL_BR: '{';
+RCURL_BR: '}';
+LPAREN: '(';
+RPAREN: ')';
+SEMI_COLON: ';';
+COMMA: ',';
+
+// Literals
+INT_LIT: '-'? [0-9]+;
+// FLOAT_LIT: '-'? (
+//       [0-9]+ '.' [0-9]+ ([eE] [+-]? [0-9]+)?  // 1.2, 123.123, 0.12e-421
+//       | '.' [0-9]+ ([eE] [+-]? [0-9]+)?       // .2, .2332, .12E-333
+//       | [0-9]* [eE]? [0-9]+                   // 2e-1, 2E+123, e-123  *** ATTENTION!!! ***
+// );
+
+FLOAT_LIT: INTEGER FRAC | INTEGER EXP | INTEGER FRAC EXP | FRAC;
+fragment INTEGER: [0-9]*;
+fragment FRAC: '.' [0-9]*;
+fragment EXP: [eE] [+-]? [1-9] [0-9]*;
+
+// !!! NOTE !!!
+// There's a difference between a newline character (\n) and a literal newline (Enter)
+// "Hello from\nThe other side" -- allowed
+// "Hello from
+// The other side" -- not allowed
+// The lexer sees the "\" and look for the next allowed escape sequence [bfrnt["][\]]. So if you write \b, \n, \t 
+// The lexer will take this as literal
+STRING_LIT: '"' (~["\\\r\n] | ESC_SEQ)* '"';
+fragment ESC_SEQ: '\\' [bfrnt"\\];
+
+// Identifiers
+ID: [a-zA-Z_] [0-9a-zA-Z_]*;
+
+ILLEGAL_ESCAPE: '"' (~["\\\r\n] | ESC_SEQ)* '\\' ~["\\bfrnt] '"';  // a backslash followed by an undefined character
+UNCLOSE_STRING: '"' (~["\\\r\n] | ESC_SEQ)* '\\'?;
+ERROR_CHAR: .;  // at the end to catch all the undefined characters
+
+// *** LEXER ***

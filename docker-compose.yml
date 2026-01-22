@@ -1,0 +1,10 @@
+services:
+  assignment-env:
+    build: .
+    container_name: tyc_container
+    volumes:
+      - .:/app
+    working_dir: /app
+    tty: true
+    stdin_open: true
+    command: tail -f /dev/null
