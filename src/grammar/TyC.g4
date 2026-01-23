@@ -83,7 +83,10 @@ SEMI_COLON: ';';
 COMMA: ',';
 
 // Literals
-INT_LIT: '-'? [0-9]+;
+// !!! NOTE !!!
+// for now, INT_LIT will only be positive value, negative value -1 will be handled by the parser.
+// So, 1-2 is 3 tokens.
+INT_LIT: [0-9]+;
 // FLOAT_LIT: '-'? (
 //       [0-9]+ '.' [0-9]+ ([eE] [+-]? [0-9]+)?  // 1.2, 123.123, 0.12e-421
 //       | '.' [0-9]+ ([eE] [+-]? [0-9]+)?       // .2, .2332, .12E-333
