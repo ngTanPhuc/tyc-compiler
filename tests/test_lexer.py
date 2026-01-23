@@ -332,7 +332,7 @@ def test_062():
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_063():
-	source = "1"
+	source = "1--2"
 	expect = "INT_LIT,1,EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
@@ -548,3 +548,44 @@ def test_100():
 		assert False, "Expected UncloseString but no exception was raised"
 	except Exception as e:
 		assert str(e) == r'Illegal Escape In String: "Space \ "'
+
+# *** EXTEND TESTCASES ***
+def test_101():
+	source = "1-2"  # 3 Tokens
+	expect = "EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
+	
+def test_102():
+  source = "1 -2"  # 2 Tokens
+  expect = "EOF"
+  assert Tokenizer(source).get_tokens_as_string() == expect
+
+def test_103():
+	source = "1 - 2"
+	expect = "EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
+	
+def test_104():
+	source = "1--2"
+	expect = "INT_LIT,1,DECREMENT,--,INT_LIT,2,EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
+	
+def test_105():
+	source = "1-- 2"
+	expect = "INT_LIT,1,DECREMENT,--,INT_LIT,2,EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
+	
+def test_106():
+	source = "1 - -2"
+	expect = "INT_LIT,1,SUB,-,INT_LIT,-2,EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
+	
+def test_107():
+	source = "---2"
+	expect = "EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
+	
+def test_108():
+	source = "+++"
+	expect = "EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
