@@ -32,14 +32,18 @@ decl_list: decl decl_list | decl;
 decl: struct_decl | func_decl;
 
 // struct
-struct_decl: STRUCT ID LCURL_BR vardecl_list RCURL_BR SEMI_SOLON;
+struct_decl: STRUCT ID LCURL_BR memdecl_list RCURL_BR SEMI_SOLON;
 
+memdecl_list: memdecl_prime | ;
+memdecl_prime: memdecl SEMI_COLON memdecl_prime | memdecl;
+memdecl: typ ID;
+typ: INT | FLOAT | STRING | ID;
 
 // function
 
 
 // others
-vardecl_list: ;
+
 
 // *** LEXER ***
 
