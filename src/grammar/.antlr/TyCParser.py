@@ -10,8 +10,9 @@ else:
 
 def serializedATN():
     return [
-        4,1,52,5,2,0,7,0,1,0,1,0,1,0,0,0,1,0,0,0,3,0,2,1,0,0,0,2,3,5,0,0,
-        1,3,1,1,0,0,0,0
+        4,1,52,10,2,0,7,0,2,1,7,1,1,0,1,0,1,0,1,1,1,1,1,1,0,0,2,0,2,0,0,
+        7,0,4,1,0,0,0,2,7,1,0,0,0,4,5,3,2,1,0,5,6,5,0,0,1,6,1,1,0,0,0,7,
+        8,1,0,0,0,8,3,1,0,0,0,0
     ]
 
 class TyCParser ( Parser ):
@@ -45,8 +46,9 @@ class TyCParser ( Parser ):
                       "ID", "ILLEGAL_ESCAPE", "UNCLOSE_STRING", "ERROR_CHAR" ]
 
     RULE_program = 0
+    RULE_decl_list = 1
 
-    ruleNames =  [ "program" ]
+    ruleNames =  [ "program", "decl_list" ]
 
     EOF = Token.EOF
     WS=1
@@ -118,6 +120,10 @@ class TyCParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
+        def decl_list(self):
+            return self.getTypedRuleContext(TyCParser.Decl_listContext,0)
+
+
         def EOF(self):
             return self.getToken(TyCParser.EOF, 0)
 
@@ -133,8 +139,40 @@ class TyCParser ( Parser ):
         self.enterRule(localctx, 0, self.RULE_program)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 2
+            self.state = 4
+            self.decl_list()
+            self.state = 5
             self.match(TyCParser.EOF)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Decl_listContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+
+        def getRuleIndex(self):
+            return TyCParser.RULE_decl_list
+
+
+
+
+    def decl_list(self):
+
+        localctx = TyCParser.Decl_listContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 2, self.RULE_decl_list)
+        try:
+            self.enterOuterAlt(localctx, 1)
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

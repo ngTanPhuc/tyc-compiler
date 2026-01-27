@@ -25,7 +25,21 @@ options{
 }
 
 // TODO: Define grammar rules here
-program: EOF; 
+// *** PARSER ***
+program: decl_list EOF;
+
+decl_list: decl decl_list | decl;
+decl: struct_decl | func_decl;
+
+// struct
+struct_decl: STRUCT ID LCURL_BR vardecl_list RCURL_BR SEMI_SOLON;
+
+
+// function
+
+
+// others
+vardecl_list: ;
 
 // *** LEXER ***
 
