@@ -8,8 +8,13 @@ from tests.utils import Parser
 
 
 def test_parser_placeholder():
-    """Placeholder test - replace with actual test cases"""
-    source = "// This is a placeholder test"
-    parser = Parser(source)
-    # TODO: Add actual test assertions
-    assert True
+  """Placeholder test - replace with actual test cases"""
+  source = "// This is a placeholder test"
+  parser = Parser(source)
+  # TODO: Add actual test assertions
+  assert True
+
+def test_001():
+  source = "void main() {int a = 8;}"
+  expect = "success"
+  assert Parser(source).parse() == expect

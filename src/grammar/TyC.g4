@@ -32,18 +32,82 @@ decl_list: decl decl_list | decl;
 decl: struct_decl | func_decl;
 
 // struct
-struct_decl: STRUCT ID LCURL_BR memdecl_list RCURL_BR SEMI_SOLON;
+struct_decl: STRUCT ID LCURL_BR member_list RCURL_BR SEMI_COLON;
 
-memdecl_list: memdecl_prime | ;
-memdecl_prime: memdecl SEMI_COLON memdecl_prime | memdecl;
-memdecl: typ ID;
-typ: INT | FLOAT | STRING | ID;
+member_list: member member_list | ;
+member: typ ID SEMI_COLON;
 
 // function
+func_decl: (typ | VOID | ) ID param_decl body;
 
+param_decl: LPAREN param_list RPAREN;
+param_list: param_prime | ;
+param_prime: param COMMA param_prime | param;
+param: typ ID;
+
+body: LCURL_BR stmt_list RCURL_BR;
+
+stmt_list: stmt stmt_list | stmt;  // stmt_list cannot be empty as the specs doesn't specify
+stmt: (
+    var_decl 
+  | block_stmt 
+  | if_stmt 
+  | whl_stmt 
+  | for_stmt 
+  | switch_stmt 
+  | break_stmt 
+  | cont_stmt 
+  | return_stmt 
+  | expr_stmt
+  );
+
+var_decl: (typ | AUTO) ID (ASSIGN expr | ) SEMI_COLON;
+
+block_stmt: LCURL_BR stmt_list RCURL_BR;
+
+if_stmt: IF LPAREN expr RPAREN stmt (ELSE stmt | );
+
+whl_stmt: WHILE LPAREN expr RPAREN stmt;
+
+// !NOTE: <update> should check for assign, increment, decrement in parser or should it be in the AST generation step
+for_stmt: FOR LPAREN for_init (expr | ) SEMI_COLON (expr | ) RPAREN stmt;
+for_init: var_decl | expr SEMI_COLON | SEMI_COLON;  // !NOTE: <init> var_decl should check for declare and assign at the same time
+
+switch_stmt: SWITCH LPAREN expr RPAREN LCURL_BR switch_body  RCURL_BR;
+switch_body: switch_section switch_body | ;
+switch_section: switch_case | switch_default;  // at this point, we allow multiple default. This error will be catched in AST generation step
+switch_case: CASE case_expression COLON (stmt_list | );
+case_expression: (INT_LIT | (ADD | SUB) INT_LIT | LPAREN expr RPAREN | expr);
+switch_default: DEFAULT COLON (stmt_list | );
+
+break_stmt: BREAK SEMI_COLON;
+
+cont_stmt: CONTINUE SEMI_COLON;
+
+return_stmt: RETURN (expr | ) SEMI_COLON;
+
+expr_stmt: expr SEMI_COLON;
+
+// expression
+expr: expr1 ASSIGN expr | expr1;
+expr1: expr1 OR expr2 | expr2;
+expr2: expr2 AND expr3 | expr3;
+expr3: expr3 (EQUAL | NOT_EQUAL) expr4 | expr4;
+expr4: expr4 (LESS | LESS_EQUAL | GREATER | GREATER_EQUAL) expr5 | expr5;
+expr5: expr5 (ADD | SUB) expr6 | expr6;
+expr6: expr6 (MUL | DIV | MOD) expr7 | expr7;
+expr7: (NOT | ADD | SUB) expr7 | expr8;
+expr8: (INCREMENT | DECREMENT) expr8 | expr9;
+expr9: expr9 (INCREMENT | DECREMENT) | expr10;
+expr10: expr10 MEMBER_ACCESS ID | expr_primary;
+expr_primary: INT_LIT | FLOAT_LIT | STRING_LIT | ID | LPAREN expr RPAREN | func_call;
 
 // others
-
+typ: INT | FLOAT | STRING | ID;  // no auto keyword
+func_call: ID LPAREN arg_list RPAREN;
+arg_list: args | ;
+args: expr COMMA args | expr;
+// *** PARSER ***
 
 // *** LEXER ***
 
@@ -99,6 +163,7 @@ LPAREN: '(';
 RPAREN: ')';
 SEMI_COLON: ';';
 COMMA: ',';
+COLON: ':';
 
 // Literals
 // !!! NOTE !!!
