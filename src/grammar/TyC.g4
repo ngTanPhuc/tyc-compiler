@@ -26,9 +26,10 @@ options{
 
 // TODO: Define grammar rules here
 // *** PARSER ***
+
 program: decl_list EOF;
 
-decl_list: decl decl_list | decl;
+decl_list: decl decl_list | ;
 decl: struct_decl | func_decl;
 
 // struct
@@ -100,13 +101,18 @@ expr7: (NOT | ADD | SUB) expr7 | expr8;
 expr8: (INCREMENT | DECREMENT) expr8 | expr9;
 expr9: expr9 (INCREMENT | DECREMENT) | expr10;
 expr10: expr10 MEMBER_ACCESS ID | expr_primary;
-expr_primary: INT_LIT | FLOAT_LIT | STRING_LIT | ID | LPAREN expr RPAREN | func_call;
+expr_primary: INT_LIT | FLOAT_LIT | STRING_LIT | ID | LPAREN expr RPAREN | func_call | struct_lit;
 
 // others
 typ: INT | FLOAT | STRING | ID;  // no auto keyword
 func_call: ID LPAREN arg_list RPAREN;
 arg_list: args | ;
 args: expr COMMA args | expr;
+struct_lit: LCURL_BR structmember_list RCURL_BR;
+structmember_list: structmember_prime | ;
+structmember_prime: struct_member COMMA structmember_list	| struct_member;
+struct_member: INT_LIT | FLOAT_LIT | STRING_LIT | ID | func_call | LCURL_BR structmember_list RCURL_BR;
+
 // *** PARSER ***
 
 // *** LEXER ***
