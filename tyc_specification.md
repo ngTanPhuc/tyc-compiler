@@ -187,9 +187,13 @@ Integer literals are of type **int**.
 
 #### Float literal
 
-Float literals are values that represent floating-point numbers. A float literal can be written in decimal notation (e.g., `3.14`, `0.5`, `123.456`) or in scientific notation (e.g., `1.23e4`, `5.67E-2`). A float literal may be preceded by a minus sign (`-`) to indicate a negative value.
+Float literals are values that represent floating-point numbers. A float literal consists of digits and may include a decimal point and/or an exponent part.
 
-The following are valid float numbers: `0.0` `3.14` `-2.5` `1.23e4` `5.67E-2` `1.` `.5`  
+A float literal must have at least one digit. If a decimal point is present, there must be at least one digit either before or after the decimal point (or both). The decimal point may be omitted if an exponent part is present.
+
+An exponent part consists of the letter `e` or `E`, optionally followed by a plus sign `+` or minus sign `-`, followed by one or more digits. The exponent sign is optional; if omitted, the exponent is positive. The exponent part itself is optional when a decimal point is present, but required when there is no decimal point.
+
+The following are valid float literals: `0.0` `3.14` `1.23e4` `5.67E-2` `1.` `.5` `1e4` `2E-3`  
 Float literals are of type **float**.
 
 #### String literals
@@ -531,14 +535,6 @@ or
 ```
 
 Assignment expressions are right-associative, allowing chained assignments such as `x = y = z = 10;`, which is parsed as `x = (y = (z = 10));`. Assignment expressions can be used in expression contexts, for example: `int y = (x = 5) + 7;`.
-
-### Primary Expression
-
-Primary expressions include:
-- **Identifiers**: `x`, `counter`, `myVar`
-- **Literals**: `123`, `3.14`, `"hello"`
-- **Parenthesized expressions**: `(x + y)`
-- **Member access**: `structVar.memberName`
 
 ### Operator Precedence and Associativity
 
