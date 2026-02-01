@@ -218,6 +218,7 @@ def test_030():
 	expect = "Error on line 1 col 17: ;"
 	assert Parser(source).parse() == expect
 
+# *** FUNCTION ***
 def test_031():
 	source = """
   void foo() {}
@@ -360,242 +361,595 @@ def test_052():
 	expect = "Error on line 1 col 0: auto"
 	assert Parser(source).parse() == expect
 
+# *** STATEMENT ***
 def test_053():
-	source = ""
+	source = """
+	void main() {
+		int x;
+		float y;
+		string z;
+		auto a;
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_054():
-	source = ""
+	source = """
+	void main() {
+		A a;
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_055():
-	source = ""
+	source = """
+	void main() {
+		int x = 5;
+		float y = -2.8;
+		string z = "Hello World";
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_056():
-	source = ""
+	source = """
+	void main() {
+		int x = -1;
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_057():
-	source = ""
+	source = """
+	void main() {
+		auto a = x + 1 - y;
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_058():
-	source = ""
+	source = """
+	void main() {
+		auto x;
+		x = 1 + 1;
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_059():
-	source = ""
+	source = """
+	void main() {
+		A a = {{1, 2}, "Hello World", {2.8, -2}};
+		int x = foo(a);
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_060():
-	source = ""
+	source = """
+	void main() {
+		int x = 2;
+		int y = -8;
+		{
+      float x = 2.0;
+			float y = .8;
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_061():
-	source = ""
+	source = """
+	void main() {
+		int x = 1;
+		{
+      int x = 2;
+			{
+        int x = 3;
+			}
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_062():
-	source = ""
+	source = """
+	void main() {
+		foo();
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_063():
-	source = ""
+	source = """
+	void main() {
+		if (x < 1) foo("ehe");
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_064():
-	source = ""
+	source = """
+	void main() {
+		if (x > 2) foo("ehe"); else foo("teehee");
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_065():
-	source = ""
+	source = """
+	void main() {
+		if (x >= y || x <= z) {
+      foo();
+		} else {
+      goo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_066():
-	source = ""
+	source = """
+	void main() {
+		if (x == y && y == z) {
+      foo();
+			
+			if (x != y) {
+        goo();
+			}
+		} else {
+      hoo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_067():
-	source = ""
+	source = """
+	void main() {
+		if (isCool) {
+      print("Hell Yeah!");
+		} else {
+      print("Nahhh");
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_068():
-	source = ""
+	source = """
+	void main() {
+		int x = -2;
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_069():
-	source = ""
+	source = """
+	void main() {
+		if (a) foo(); if (b) goo(); else hoo();
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_070():
-	source = ""
+	source = """
+	void main() {
+		while (TrueAF) doAFlip();
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_071():
-	source = ""
+	source = """
+	void main() {
+		while (notCool) {
+      shout("Get out!!!");
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_072():
-	source = ""
+	source = """
+	void main() {
+		auto i = 0;
+		while (i < 10) {
+      count(i);
+			i++;
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_073():
-	source = ""
+	source = """
+	void main() {
+		while (beingCool) {
+      while (doingBackFlip) {
+        // empty while
+			}
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_074():
-	source = ""
-	expect = "success"
+	source = """
+	void main() {
+    while () {}
+	}
+	"""
+	expect = "Error on line 3 col 11: )"
 	assert Parser(source).parse() == expect
 
 def test_075():
-	source = ""
+	source = """
+	void main() {
+		for (; ;) {
+      doNothing();
+			a++;
+			i = i + 1;
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_076():
-	source = ""
+	source = """
+	void main() {
+		int i = 0;
+		for (i; i < 10; i++) {
+      foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_077():
-	source = ""
+	source = """
+	void main() {
+		for (int i = 0; i < 10; i++) {
+      foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_078():
-	source = ""
+	source = """
+	void main() {
+		int i = 1;
+		for (i = 0; i < 10; i++) {
+      foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_079():
-	source = ""
+	source = """
+	void main() {
+		for (int i = 0; i < 10; ) {
+      foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_080():
-	source = ""
+	source = """
+	void main() {
+		for (int i = 0; i < 10; i = 12) {
+      foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_081():
-	source = ""
+	source = """
+	void main() {
+		for (int i = 0; i < 10; i++) {
+      foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_082():
-	source = ""
+	source = """
+	void main() {
+		for (int i = 0; i < 10; --i) {
+      foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_083():
-	source = ""
+	source = """
+	void main() {
+		for (int i = 0; i < 10; i = goo(i)) {
+      foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_084():
-	source = ""
+	source = """
+	void main() {
+		for (int i = 0; i < 10; i = x && y) {
+      foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_085():
-	source = ""
+	source = """
+	void main() {
+		switch (x) {
+      case 1:
+        foo();
+			case 2:
+        goo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_086():
-	source = ""
+	source = """
+	void main() {
+		switch (x) {
+      case 1:
+        foo();
+			case 2:
+        goo();
+			default:
+        hoo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_087():
-	source = ""
+	source = """
+	void main() {
+		switch (x) {
+      case 28:
+        foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_088():
-	source = ""
+	source = """
+	void main() {
+		switch (x) {
+      case +28:
+        foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_089():
-	source = ""
+	source = """
+	void main() {
+		switch (x) {
+      case -28:
+        foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_090():
-	source = ""
+	source = """
+	void main() {
+		switch (x) {
+      case (28 + 1):
+        foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_091():
-	source = ""
+	source = """
+	void main() {
+		switch (x) {
+      case (x * 2 + 1):
+        foo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_092():
-	source = ""
+	source = """
+	void main() {
+		switch (x) {
+      case 28:
+        foo();
+			default:
+        goo();
+			case 82:
+        hoo();
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_093():
-	source = ""
-	expect = "success"
+	source = """
+	void main() {
+		switch (x) {
+      case 28:
+        foo();
+			default:
+        goo();
+			default:
+        hoo();
+		}
+	}
+	"""
+	expect = "Error on line 8 col 3: default"
 	assert Parser(source).parse() == expect
 
 def test_094():
-	source = ""
+	source = """
+	void main() {
+		switch (x) {}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_095():
-	source = ""
+	source = """
+	void main() {
+		switch (x) {
+      case 28:
+			default:
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_096():
-	source = ""
+	source = """
+	void main() {
+		switch (x) {
+      case 28:
+        foo();
+				break;
+			case 82:
+        goo();
+				break;
+			default:
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_097():
-	source = ""
+	source = """
+	void main() {
+		switch (x) {
+      case 28 + 1:
+			default:
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_098():
-	source = ""
+	source = """
+	void main() {
+		for (int i = 0; i < 10; i++) {
+      if (i == 2) continue;
+		}
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_099():
-	source = ""
+	source = """
+	float foo() {
+		return a + 1;
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_100():
-	source = ""
+	source = """
+	void main() {
+		return;
+	}
+	"""
 	expect = "success"
+	assert Parser(source).parse() == expect
+	
+def test_101():
+	source = """
+	void main() {
+		int x = 1;
+		42;
+		"Hello World";
+		foo();
+		a = b = c = -1.2;
+		x == 8;
+		!!a || b && !c;
+		point.z;
+		++point.z;
+	}
+	"""
+	expect = "success"
+	assert Parser(source).parse() == expect
+	
+def test_102():
+	source = """
+	void main() {
+		;
+	}
+	"""
+	expect = "Error on line 3 col 2: ;"
+	assert Parser(source).parse() == expect
+	
+def test_103():
+	source = """
+	void main() {
+		x +;
+	}
+	"""
+	expect = "Error on line 3 col 5: ;"
 	assert Parser(source).parse() == expect
