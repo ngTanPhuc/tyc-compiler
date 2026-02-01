@@ -25,7 +25,98 @@ options{
 }
 
 // TODO: Define grammar rules here
-program: EOF; 
+// *** PARSER ***
+
+program: decl_list EOF;
+
+decl_list: decl decl_list | ;
+decl: struct_decl | func_decl;
+
+// struct
+struct_decl: STRUCT ID LCURL_BR member_list RCURL_BR SEMI_COLON;
+
+member_list: member member_list | ;
+member: typ ID SEMI_COLON;
+
+// function
+func_decl: (typ | VOID | ) ID param_decl body;
+
+param_decl: LPAREN param_list RPAREN;
+param_list: param_prime | ;
+param_prime: param COMMA param_prime | param;
+param: typ ID;
+
+body: LCURL_BR stmt_list RCURL_BR;  // !NOTE: function body is a block statement, can a block statement be empty?
+stmt_list: stmt_prime | ;
+stmt_prime: stmt stmt_list | stmt;  // stmt_list cannot be empty as the specs doesn't specify
+stmt: (
+    var_decl 
+  | block_stmt 
+  | if_stmt 
+  | whl_stmt 
+  | for_stmt 
+  | switch_stmt 
+  | break_stmt 
+  | cont_stmt 
+  | return_stmt 
+  | expr_stmt
+  );
+
+var_decl: (typ | AUTO) ID (ASSIGN expr | ) SEMI_COLON;
+
+block_stmt: LCURL_BR stmt_list RCURL_BR;
+
+if_stmt: IF LPAREN expr RPAREN stmt (ELSE stmt | );
+
+whl_stmt: WHILE LPAREN expr RPAREN stmt;
+
+// !NOTE: <update> should check for assign, increment, decrement in parser or should it be in the AST generation step
+for_stmt: FOR LPAREN for_init (expr | ) SEMI_COLON (for_update | ) RPAREN stmt;
+for_init: var_decl | expr SEMI_COLON | SEMI_COLON;  // !NOTE: <init> var_decl should check for declare and assign at the same time
+for_update: (for_assign | for_increment_decrement);
+for_assign: ID ASSIGN expr;
+for_increment_decrement: (left_increment_decrement | right_increment_decrement);
+left_increment_decrement: (INCREMENT | DECREMENT) ID;
+right_increment_decrement: ID (INCREMENT | DECREMENT);
+
+switch_stmt: SWITCH LPAREN expr RPAREN LCURL_BR switch_body RCURL_BR;
+switch_body: switch_case_list (switch_default switch_case_list | );
+switch_case_list: switch_case switch_case_list | ;
+switch_case: CASE case_expression COLON (stmt_list | );
+case_expression: (INT_LIT | (ADD | SUB) INT_LIT | LPAREN expr RPAREN | expr);
+switch_default: DEFAULT COLON (stmt_list | );
+
+break_stmt: BREAK SEMI_COLON;
+
+cont_stmt: CONTINUE SEMI_COLON;
+
+return_stmt: RETURN (expr | ) SEMI_COLON;
+
+expr_stmt: expr SEMI_COLON;
+
+// expression
+expr: expr1 ASSIGN expr | expr1;
+expr1: expr1 OR expr2 | expr2;
+expr2: expr2 AND expr3 | expr3;
+expr3: expr3 (EQUAL | NOT_EQUAL) expr4 | expr4;
+expr4: expr4 (LESS | LESS_EQUAL | GREATER | GREATER_EQUAL) expr5 | expr5;
+expr5: expr5 (ADD | SUB) expr6 | expr6;
+expr6: expr6 (MUL | DIV | MOD) expr7 | expr7;
+expr7: (NOT | ADD | SUB) expr7 | expr8;
+expr8: (INCREMENT | DECREMENT) expr8 | expr9;
+expr9: expr9 (INCREMENT | DECREMENT) | expr10;
+expr10: expr10 MEMBER_ACCESS ID | expr_primary;
+expr_primary: INT_LIT | FLOAT_LIT | STRING_LIT | ID | LPAREN expr RPAREN | func_call | struct_lit;
+
+// others
+typ: INT | FLOAT | STRING | ID;  // no auto keyword
+func_call: ID LPAREN arg_list RPAREN;
+arg_list: args | ;
+args: expr COMMA args | expr;
+struct_lit: LCURL_BR (structmem_list | ) RCURL_BR;
+structmem_list: expr COMMA structmem_list | expr;
+
+// *** PARSER ***
 
 // *** LEXER ***
 
@@ -81,9 +172,13 @@ LPAREN: '(';
 RPAREN: ')';
 SEMI_COLON: ';';
 COMMA: ',';
+COLON: ':';
 
 // Literals
-INT_LIT: '-'? [0-9]+;
+// !!! NOTE !!!
+// for now, INT_LIT will only be positive value, negative value -1 will be handled by the parser.
+// So, 1-2 is 3 tokens.
+INT_LIT: [0-9]+;
 // FLOAT_LIT: '-'? (
 //       [0-9]+ '.' [0-9]+ ([eE] [+-]? [0-9]+)?  // 1.2, 123.123, 0.12e-421
 //       | '.' [0-9]+ ([eE] [+-]? [0-9]+)?       // .2, .2332, .12E-333

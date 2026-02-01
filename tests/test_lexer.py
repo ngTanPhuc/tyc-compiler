@@ -221,7 +221,7 @@ def test_040():
 
 def test_041():
 	source = "1-2"
-	expect = "INT_LIT,1,INT_LIT,-2,EOF"
+	expect = "INT_LIT,1,SUB,-,INT_LIT,2,EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_042():
@@ -231,12 +231,12 @@ def test_042():
 
 def test_043():
 	source = "1+2-3*4/5"
-	expect = "INT_LIT,1,ADD,+,INT_LIT,2,INT_LIT,-3,MUL,*,INT_LIT,4,DIV,/,INT_LIT,5,EOF"
+	expect = "INT_LIT,1,ADD,+,INT_LIT,2,SUB,-,INT_LIT,3,MUL,*,INT_LIT,4,DIV,/,INT_LIT,5,EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_044():
 	source = "1 -2"
-	expect = "INT_LIT,1,INT_LIT,-2,EOF"
+	expect = "INT_LIT,1,SUB,-,INT_LIT,2,EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_045():
@@ -256,7 +256,7 @@ def test_047():
 
 def test_048():
 	source = "-1"
-	expect = "INT_LIT,-1,EOF"
+	expect = "SUB,-,INT_LIT,1,EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 # *** SEPARATOR ***
@@ -328,12 +328,12 @@ def test_061():
 
 def test_062():
 	source = "1 -2 5 3 -12345"
-	expect = "INT_LIT,1,INT_LIT,-2,INT_LIT,5,INT_LIT,3,INT_LIT,-12345,EOF"
+	expect = "INT_LIT,1,SUB,-,INT_LIT,2,INT_LIT,5,INT_LIT,3,SUB,-,INT_LIT,12345,EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_063():
-	source = "1"
-	expect = "INT_LIT,1,EOF"
+	source = "1--2"
+	expect = "INT_LIT,1,DECREMENT,--,INT_LIT,2,EOF"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_064():
@@ -548,3 +548,44 @@ def test_100():
 		assert False, "Expected UncloseString but no exception was raised"
 	except Exception as e:
 		assert str(e) == r'Illegal Escape In String: "Space \ "'
+
+# *** EXTEND TESTCASES ***
+def test_101():
+	source = "1-2"  # 3 Tokens
+	expect = "EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
+	
+def test_102():
+  source = "1 -2"  # 2 Tokens
+  expect = "EOF"
+  assert Tokenizer(source).get_tokens_as_string() == expect
+
+def test_103():
+	source = "1 - 2"
+	expect = "EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
+	
+def test_104():
+	source = "1--2"
+	expect = "INT_LIT,1,DECREMENT,--,INT_LIT,2,EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
+	
+def test_105():
+	source = "1-- 2"
+	expect = "INT_LIT,1,DECREMENT,--,INT_LIT,2,EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
+	
+def test_106():
+	source = "1 - -2"
+	expect = "INT_LIT,1,SUB,-,INT_LIT,-2,EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
+	
+def test_107():
+	source = "---2"
+	expect = "EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
+	
+def test_108():
+	source = "+++"
+	expect = "EOF"
+	assert Tokenizer(source).get_tokens_as_string() == expect
