@@ -51,9 +51,9 @@ def serializedATN():
         53,1,53,1,53,1,53,3,53,470,8,53,1,53,0,8,74,76,78,80,82,84,90,92,
         54,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,
         44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,
-        88,90,92,94,96,98,100,102,104,106,0,7,1,0,34,35,1,0,20,21,1,0,25,
-        26,1,0,27,30,1,0,22,24,2,0,20,21,33,33,4,0,10,10,13,13,15,15,50,
-        50,473,0,108,1,0,0,0,2,115,1,0,0,0,4,119,1,0,0,0,6,121,1,0,0,0,8,
+        88,90,92,94,96,98,100,102,104,106,0,7,1,0,35,36,1,0,21,22,1,0,26,
+        27,1,0,28,31,1,0,23,25,2,0,21,22,34,34,4,0,11,11,14,14,16,16,51,
+        51,473,0,108,1,0,0,0,2,115,1,0,0,0,4,119,1,0,0,0,6,121,1,0,0,0,8,
         132,1,0,0,0,10,134,1,0,0,0,12,141,1,0,0,0,14,147,1,0,0,0,16,153,
         1,0,0,0,18,160,1,0,0,0,20,162,1,0,0,0,22,165,1,0,0,0,24,171,1,0,
         0,0,26,177,1,0,0,0,28,189,1,0,0,0,30,193,1,0,0,0,32,203,1,0,0,0,
@@ -69,20 +69,20 @@ def serializedATN():
         0,0,1,110,1,1,0,0,0,111,112,3,4,2,0,112,113,3,2,1,0,113,116,1,0,
         0,0,114,116,1,0,0,0,115,111,1,0,0,0,115,114,1,0,0,0,116,3,1,0,0,
         0,117,120,3,6,3,0,118,120,3,12,6,0,119,117,1,0,0,0,119,118,1,0,0,
-        0,120,5,1,0,0,0,121,122,5,16,0,0,122,123,5,50,0,0,123,124,5,40,0,
-        0,124,125,3,8,4,0,125,126,5,41,0,0,126,127,5,44,0,0,127,7,1,0,0,
+        0,120,5,1,0,0,0,121,122,5,17,0,0,122,123,5,51,0,0,123,124,5,41,0,
+        0,124,125,3,8,4,0,125,126,5,42,0,0,126,127,5,45,0,0,127,7,1,0,0,
         0,128,129,3,10,5,0,129,130,3,8,4,0,130,133,1,0,0,0,131,133,1,0,0,
         0,132,128,1,0,0,0,132,131,1,0,0,0,133,9,1,0,0,0,134,135,3,96,48,
-        0,135,136,5,50,0,0,136,137,5,44,0,0,137,11,1,0,0,0,138,142,3,96,
-        48,0,139,142,5,18,0,0,140,142,1,0,0,0,141,138,1,0,0,0,141,139,1,
-        0,0,0,141,140,1,0,0,0,142,143,1,0,0,0,143,144,5,50,0,0,144,145,3,
-        14,7,0,145,146,3,22,11,0,146,13,1,0,0,0,147,148,5,42,0,0,148,149,
-        3,16,8,0,149,150,5,43,0,0,150,15,1,0,0,0,151,154,3,18,9,0,152,154,
+        0,135,136,5,51,0,0,136,137,5,45,0,0,137,11,1,0,0,0,138,142,3,96,
+        48,0,139,142,5,19,0,0,140,142,1,0,0,0,141,138,1,0,0,0,141,139,1,
+        0,0,0,141,140,1,0,0,0,142,143,1,0,0,0,143,144,5,51,0,0,144,145,3,
+        14,7,0,145,146,3,22,11,0,146,13,1,0,0,0,147,148,5,43,0,0,148,149,
+        3,16,8,0,149,150,5,44,0,0,150,15,1,0,0,0,151,154,3,18,9,0,152,154,
         1,0,0,0,153,151,1,0,0,0,153,152,1,0,0,0,154,17,1,0,0,0,155,156,3,
-        20,10,0,156,157,5,45,0,0,157,158,3,18,9,0,158,161,1,0,0,0,159,161,
+        20,10,0,156,157,5,46,0,0,157,158,3,18,9,0,158,161,1,0,0,0,159,161,
         3,20,10,0,160,155,1,0,0,0,160,159,1,0,0,0,161,19,1,0,0,0,162,163,
-        3,96,48,0,163,164,5,50,0,0,164,21,1,0,0,0,165,166,5,40,0,0,166,167,
-        3,24,12,0,167,168,5,41,0,0,168,23,1,0,0,0,169,172,3,26,13,0,170,
+        3,96,48,0,163,164,5,51,0,0,164,21,1,0,0,0,165,166,5,41,0,0,166,167,
+        3,24,12,0,167,168,5,42,0,0,168,23,1,0,0,0,169,172,3,26,13,0,170,
         172,1,0,0,0,171,169,1,0,0,0,171,170,1,0,0,0,172,25,1,0,0,0,173,174,
         3,28,14,0,174,175,3,24,12,0,175,178,1,0,0,0,176,178,3,28,14,0,177,
         173,1,0,0,0,177,176,1,0,0,0,178,27,1,0,0,0,179,190,3,30,15,0,180,
@@ -91,51 +91,51 @@ def serializedATN():
         3,68,34,0,188,190,3,70,35,0,189,179,1,0,0,0,189,180,1,0,0,0,189,
         181,1,0,0,0,189,182,1,0,0,0,189,183,1,0,0,0,189,184,1,0,0,0,189,
         185,1,0,0,0,189,186,1,0,0,0,189,187,1,0,0,0,189,188,1,0,0,0,190,
-        29,1,0,0,0,191,194,3,96,48,0,192,194,5,4,0,0,193,191,1,0,0,0,193,
-        192,1,0,0,0,194,195,1,0,0,0,195,199,5,50,0,0,196,197,5,36,0,0,197,
+        29,1,0,0,0,191,194,3,96,48,0,192,194,5,5,0,0,193,191,1,0,0,0,193,
+        192,1,0,0,0,194,195,1,0,0,0,195,199,5,51,0,0,196,197,5,37,0,0,197,
         200,3,72,36,0,198,200,1,0,0,0,199,196,1,0,0,0,199,198,1,0,0,0,200,
-        201,1,0,0,0,201,202,5,44,0,0,202,31,1,0,0,0,203,204,5,40,0,0,204,
-        205,3,24,12,0,205,206,5,41,0,0,206,33,1,0,0,0,207,208,5,12,0,0,208,
-        209,5,42,0,0,209,210,3,72,36,0,210,211,5,43,0,0,211,215,3,28,14,
-        0,212,213,5,9,0,0,213,216,3,28,14,0,214,216,1,0,0,0,215,212,1,0,
-        0,0,215,214,1,0,0,0,216,35,1,0,0,0,217,218,5,19,0,0,218,219,5,42,
-        0,0,219,220,3,72,36,0,220,221,5,43,0,0,221,222,3,28,14,0,222,37,
-        1,0,0,0,223,224,5,11,0,0,224,225,5,42,0,0,225,228,3,40,20,0,226,
+        201,1,0,0,0,201,202,5,45,0,0,202,31,1,0,0,0,203,204,5,41,0,0,204,
+        205,3,24,12,0,205,206,5,42,0,0,206,33,1,0,0,0,207,208,5,13,0,0,208,
+        209,5,43,0,0,209,210,3,72,36,0,210,211,5,44,0,0,211,215,3,28,14,
+        0,212,213,5,10,0,0,213,216,3,28,14,0,214,216,1,0,0,0,215,212,1,0,
+        0,0,215,214,1,0,0,0,216,35,1,0,0,0,217,218,5,20,0,0,218,219,5,43,
+        0,0,219,220,3,72,36,0,220,221,5,44,0,0,221,222,3,28,14,0,222,37,
+        1,0,0,0,223,224,5,12,0,0,224,225,5,43,0,0,225,228,3,40,20,0,226,
         229,3,72,36,0,227,229,1,0,0,0,228,226,1,0,0,0,228,227,1,0,0,0,229,
-        230,1,0,0,0,230,233,5,44,0,0,231,234,3,42,21,0,232,234,1,0,0,0,233,
-        231,1,0,0,0,233,232,1,0,0,0,234,235,1,0,0,0,235,236,5,43,0,0,236,
+        230,1,0,0,0,230,233,5,45,0,0,231,234,3,42,21,0,232,234,1,0,0,0,233,
+        231,1,0,0,0,233,232,1,0,0,0,234,235,1,0,0,0,235,236,5,44,0,0,236,
         237,3,28,14,0,237,39,1,0,0,0,238,244,3,30,15,0,239,240,3,72,36,0,
-        240,241,5,44,0,0,241,244,1,0,0,0,242,244,5,44,0,0,243,238,1,0,0,
+        240,241,5,45,0,0,241,244,1,0,0,0,242,244,5,45,0,0,243,238,1,0,0,
         0,243,239,1,0,0,0,243,242,1,0,0,0,244,41,1,0,0,0,245,248,3,44,22,
         0,246,248,3,46,23,0,247,245,1,0,0,0,247,246,1,0,0,0,248,43,1,0,0,
-        0,249,250,5,50,0,0,250,251,5,36,0,0,251,252,3,72,36,0,252,45,1,0,
+        0,249,250,5,51,0,0,250,251,5,37,0,0,251,252,3,72,36,0,252,45,1,0,
         0,0,253,256,3,48,24,0,254,256,3,50,25,0,255,253,1,0,0,0,255,254,
-        1,0,0,0,256,47,1,0,0,0,257,258,7,0,0,0,258,259,5,50,0,0,259,49,1,
-        0,0,0,260,261,5,50,0,0,261,262,7,0,0,0,262,51,1,0,0,0,263,264,5,
-        17,0,0,264,265,5,42,0,0,265,266,3,72,36,0,266,267,5,43,0,0,267,268,
-        5,40,0,0,268,269,3,54,27,0,269,270,5,41,0,0,270,53,1,0,0,0,271,276,
+        1,0,0,0,256,47,1,0,0,0,257,258,7,0,0,0,258,259,5,51,0,0,259,49,1,
+        0,0,0,260,261,5,51,0,0,261,262,7,0,0,0,262,51,1,0,0,0,263,264,5,
+        18,0,0,264,265,5,43,0,0,265,266,3,72,36,0,266,267,5,44,0,0,267,268,
+        5,41,0,0,268,269,3,54,27,0,269,270,5,42,0,0,270,53,1,0,0,0,271,276,
         3,56,28,0,272,273,3,62,31,0,273,274,3,56,28,0,274,277,1,0,0,0,275,
         277,1,0,0,0,276,272,1,0,0,0,276,275,1,0,0,0,277,55,1,0,0,0,278,279,
         3,58,29,0,279,280,3,56,28,0,280,283,1,0,0,0,281,283,1,0,0,0,282,
-        278,1,0,0,0,282,281,1,0,0,0,283,57,1,0,0,0,284,285,5,6,0,0,285,286,
-        3,60,30,0,286,289,5,46,0,0,287,290,3,24,12,0,288,290,1,0,0,0,289,
-        287,1,0,0,0,289,288,1,0,0,0,290,59,1,0,0,0,291,300,5,47,0,0,292,
-        293,7,1,0,0,293,300,5,47,0,0,294,295,5,42,0,0,295,296,3,72,36,0,
-        296,297,5,43,0,0,297,300,1,0,0,0,298,300,3,72,36,0,299,291,1,0,0,
+        278,1,0,0,0,282,281,1,0,0,0,283,57,1,0,0,0,284,285,5,7,0,0,285,286,
+        3,60,30,0,286,289,5,47,0,0,287,290,3,24,12,0,288,290,1,0,0,0,289,
+        287,1,0,0,0,289,288,1,0,0,0,290,59,1,0,0,0,291,300,5,48,0,0,292,
+        293,7,1,0,0,293,300,5,48,0,0,294,295,5,43,0,0,295,296,3,72,36,0,
+        296,297,5,44,0,0,297,300,1,0,0,0,298,300,3,72,36,0,299,291,1,0,0,
         0,299,292,1,0,0,0,299,294,1,0,0,0,299,298,1,0,0,0,300,61,1,0,0,0,
-        301,302,5,8,0,0,302,305,5,46,0,0,303,306,3,24,12,0,304,306,1,0,0,
-        0,305,303,1,0,0,0,305,304,1,0,0,0,306,63,1,0,0,0,307,308,5,5,0,0,
-        308,309,5,44,0,0,309,65,1,0,0,0,310,311,5,7,0,0,311,312,5,44,0,0,
-        312,67,1,0,0,0,313,316,5,14,0,0,314,317,3,72,36,0,315,317,1,0,0,
-        0,316,314,1,0,0,0,316,315,1,0,0,0,317,318,1,0,0,0,318,319,5,44,0,
-        0,319,69,1,0,0,0,320,321,3,72,36,0,321,322,5,44,0,0,322,71,1,0,0,
-        0,323,324,3,74,37,0,324,325,5,36,0,0,325,326,3,72,36,0,326,329,1,
+        301,302,5,9,0,0,302,305,5,47,0,0,303,306,3,24,12,0,304,306,1,0,0,
+        0,305,303,1,0,0,0,305,304,1,0,0,0,306,63,1,0,0,0,307,308,5,6,0,0,
+        308,309,5,45,0,0,309,65,1,0,0,0,310,311,5,8,0,0,311,312,5,45,0,0,
+        312,67,1,0,0,0,313,316,5,15,0,0,314,317,3,72,36,0,315,317,1,0,0,
+        0,316,314,1,0,0,0,316,315,1,0,0,0,317,318,1,0,0,0,318,319,5,45,0,
+        0,319,69,1,0,0,0,320,321,3,72,36,0,321,322,5,45,0,0,322,71,1,0,0,
+        0,323,324,3,74,37,0,324,325,5,37,0,0,325,326,3,72,36,0,326,329,1,
         0,0,0,327,329,3,74,37,0,328,323,1,0,0,0,328,327,1,0,0,0,329,73,1,
         0,0,0,330,331,6,37,-1,0,331,332,3,76,38,0,332,338,1,0,0,0,333,334,
-        10,2,0,0,334,335,5,31,0,0,335,337,3,76,38,0,336,333,1,0,0,0,337,
+        10,2,0,0,334,335,5,32,0,0,335,337,3,76,38,0,336,333,1,0,0,0,337,
         340,1,0,0,0,338,336,1,0,0,0,338,339,1,0,0,0,339,75,1,0,0,0,340,338,
         1,0,0,0,341,342,6,38,-1,0,342,343,3,78,39,0,343,349,1,0,0,0,344,
-        345,10,2,0,0,345,346,5,32,0,0,346,348,3,78,39,0,347,344,1,0,0,0,
+        345,10,2,0,0,345,346,5,33,0,0,346,348,3,78,39,0,347,344,1,0,0,0,
         348,351,1,0,0,0,349,347,1,0,0,0,349,350,1,0,0,0,350,77,1,0,0,0,351,
         349,1,0,0,0,352,353,6,39,-1,0,353,354,3,80,40,0,354,360,1,0,0,0,
         355,356,10,2,0,0,356,357,7,2,0,0,357,359,3,80,40,0,358,355,1,0,0,
@@ -156,21 +156,21 @@ def serializedATN():
         413,1,0,0,0,409,410,10,2,0,0,410,412,7,0,0,0,411,409,1,0,0,0,412,
         415,1,0,0,0,413,411,1,0,0,0,413,414,1,0,0,0,414,91,1,0,0,0,415,413,
         1,0,0,0,416,417,6,46,-1,0,417,418,3,94,47,0,418,424,1,0,0,0,419,
-        420,10,2,0,0,420,421,5,37,0,0,421,423,5,50,0,0,422,419,1,0,0,0,423,
+        420,10,2,0,0,420,421,5,38,0,0,421,423,5,51,0,0,422,419,1,0,0,0,423,
         426,1,0,0,0,424,422,1,0,0,0,424,425,1,0,0,0,425,93,1,0,0,0,426,424,
-        1,0,0,0,427,438,5,47,0,0,428,438,5,48,0,0,429,438,5,49,0,0,430,438,
-        5,50,0,0,431,432,5,42,0,0,432,433,3,72,36,0,433,434,5,43,0,0,434,
+        1,0,0,0,427,438,5,48,0,0,428,438,5,49,0,0,429,438,5,50,0,0,430,438,
+        5,51,0,0,431,432,5,43,0,0,432,433,3,72,36,0,433,434,5,44,0,0,434,
         438,1,0,0,0,435,438,3,98,49,0,436,438,3,104,52,0,437,427,1,0,0,0,
         437,428,1,0,0,0,437,429,1,0,0,0,437,430,1,0,0,0,437,431,1,0,0,0,
         437,435,1,0,0,0,437,436,1,0,0,0,438,95,1,0,0,0,439,440,7,6,0,0,440,
-        97,1,0,0,0,441,442,5,50,0,0,442,443,5,42,0,0,443,444,3,100,50,0,
-        444,445,5,43,0,0,445,99,1,0,0,0,446,449,3,102,51,0,447,449,1,0,0,
+        97,1,0,0,0,441,442,5,51,0,0,442,443,5,43,0,0,443,444,3,100,50,0,
+        444,445,5,44,0,0,445,99,1,0,0,0,446,449,3,102,51,0,447,449,1,0,0,
         0,448,446,1,0,0,0,448,447,1,0,0,0,449,101,1,0,0,0,450,451,3,72,36,
-        0,451,452,5,45,0,0,452,453,3,102,51,0,453,456,1,0,0,0,454,456,3,
+        0,451,452,5,46,0,0,452,453,3,102,51,0,453,456,1,0,0,0,454,456,3,
         72,36,0,455,450,1,0,0,0,455,454,1,0,0,0,456,103,1,0,0,0,457,460,
-        5,40,0,0,458,461,3,106,53,0,459,461,1,0,0,0,460,458,1,0,0,0,460,
-        459,1,0,0,0,461,462,1,0,0,0,462,463,5,41,0,0,463,105,1,0,0,0,464,
-        465,3,72,36,0,465,466,5,45,0,0,466,467,3,106,53,0,467,470,1,0,0,
+        5,41,0,0,458,461,3,106,53,0,459,461,1,0,0,0,460,458,1,0,0,0,460,
+        459,1,0,0,0,461,462,1,0,0,0,462,463,5,42,0,0,463,105,1,0,0,0,464,
+        465,3,72,36,0,465,466,5,46,0,0,466,467,3,106,53,0,467,470,1,0,0,
         0,468,470,3,72,36,0,469,464,1,0,0,0,469,468,1,0,0,0,470,107,1,0,
         0,0,39,115,119,132,141,153,160,171,177,189,193,199,215,228,233,243,
         247,255,276,282,289,299,305,316,328,338,349,360,371,382,393,399,
@@ -188,24 +188,24 @@ class TyCParser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "'auto'", "'break'", "'case'", "'continue'", "'default'", 
-                     "'else'", "'float'", "'for'", "'if'", "'int'", "'return'", 
-                     "'string'", "'struct'", "'switch'", "'void'", "'while'", 
-                     "'+'", "'-'", "'*'", "'/'", "'%'", "'=='", "'!='", 
-                     "'<'", "'>'", "'<='", "'>='", "'||'", "'&&'", "'!'", 
-                     "'++'", "'--'", "'='", "'.'", "'['", "']'", "'{'", 
-                     "'}'", "'('", "')'", "';'", "','", "':'" ]
+                     "<INVALID>", "'auto'", "'break'", "'case'", "'continue'", 
+                     "'default'", "'else'", "'float'", "'for'", "'if'", 
+                     "'int'", "'return'", "'string'", "'struct'", "'switch'", 
+                     "'void'", "'while'", "'+'", "'-'", "'*'", "'/'", "'%'", 
+                     "'=='", "'!='", "'<'", "'>'", "'<='", "'>='", "'||'", 
+                     "'&&'", "'!'", "'++'", "'--'", "'='", "'.'", "'['", 
+                     "']'", "'{'", "'}'", "'('", "')'", "';'", "','", "':'" ]
 
-    symbolicNames = [ "<INVALID>", "WS", "BLOCK_CMT", "LINE_CMT", "AUTO", 
-                      "BREAK", "CASE", "CONTINUE", "DEFAULT", "ELSE", "FLOAT", 
-                      "FOR", "IF", "INT", "RETURN", "STRING", "STRUCT", 
-                      "SWITCH", "VOID", "WHILE", "ADD", "SUB", "MUL", "DIV", 
-                      "MOD", "EQUAL", "NOT_EQUAL", "LESS", "GREATER", "LESS_EQUAL", 
-                      "GREATER_EQUAL", "OR", "AND", "NOT", "INCREMENT", 
-                      "DECREMENT", "ASSIGN", "MEMBER_ACCESS", "LSQUARE_BR", 
-                      "RSQUARE_BR", "LCURL_BR", "RCURL_BR", "LPAREN", "RPAREN", 
-                      "SEMI_COLON", "COMMA", "COLON", "INT_LIT", "FLOAT_LIT", 
-                      "STRING_LIT", "ID", "ILLEGAL_ESCAPE", "UNCLOSE_STRING", 
+    symbolicNames = [ "<INVALID>", "ILLEGAL_ESCAPE", "WS", "BLOCK_CMT", 
+                      "LINE_CMT", "AUTO", "BREAK", "CASE", "CONTINUE", "DEFAULT", 
+                      "ELSE", "FLOAT", "FOR", "IF", "INT", "RETURN", "STRING", 
+                      "STRUCT", "SWITCH", "VOID", "WHILE", "ADD", "SUB", 
+                      "MUL", "DIV", "MOD", "EQUAL", "NOT_EQUAL", "LESS", 
+                      "GREATER", "LESS_EQUAL", "GREATER_EQUAL", "OR", "AND", 
+                      "NOT", "INCREMENT", "DECREMENT", "ASSIGN", "MEMBER_ACCESS", 
+                      "LSQUARE_BR", "RSQUARE_BR", "LCURL_BR", "RCURL_BR", 
+                      "LPAREN", "RPAREN", "SEMI_COLON", "COMMA", "COLON", 
+                      "INT_LIT", "FLOAT_LIT", "STRING_LIT", "ID", "UNCLOSE_STRING", 
                       "ERROR_CHAR" ]
 
     RULE_program = 0
@@ -277,57 +277,57 @@ class TyCParser ( Parser ):
                    "arg_list", "args", "struct_lit", "structmem_list" ]
 
     EOF = Token.EOF
-    WS=1
-    BLOCK_CMT=2
-    LINE_CMT=3
-    AUTO=4
-    BREAK=5
-    CASE=6
-    CONTINUE=7
-    DEFAULT=8
-    ELSE=9
-    FLOAT=10
-    FOR=11
-    IF=12
-    INT=13
-    RETURN=14
-    STRING=15
-    STRUCT=16
-    SWITCH=17
-    VOID=18
-    WHILE=19
-    ADD=20
-    SUB=21
-    MUL=22
-    DIV=23
-    MOD=24
-    EQUAL=25
-    NOT_EQUAL=26
-    LESS=27
-    GREATER=28
-    LESS_EQUAL=29
-    GREATER_EQUAL=30
-    OR=31
-    AND=32
-    NOT=33
-    INCREMENT=34
-    DECREMENT=35
-    ASSIGN=36
-    MEMBER_ACCESS=37
-    LSQUARE_BR=38
-    RSQUARE_BR=39
-    LCURL_BR=40
-    RCURL_BR=41
-    LPAREN=42
-    RPAREN=43
-    SEMI_COLON=44
-    COMMA=45
-    COLON=46
-    INT_LIT=47
-    FLOAT_LIT=48
-    STRING_LIT=49
-    ID=50
-    ILLEGAL_ESCAPE=51
+    ILLEGAL_ESCAPE=1
+    WS=2
+    BLOCK_CMT=3
+    LINE_CMT=4
+    AUTO=5
+    BREAK=6
+    CASE=7
+    CONTINUE=8
+    DEFAULT=9
+    ELSE=10
+    FLOAT=11
+    FOR=12
+    IF=13
+    INT=14
+    RETURN=15
+    STRING=16
+    STRUCT=17
+    SWITCH=18
+    VOID=19
+    WHILE=20
+    ADD=21
+    SUB=22
+    MUL=23
+    DIV=24
+    MOD=25
+    EQUAL=26
+    NOT_EQUAL=27
+    LESS=28
+    GREATER=29
+    LESS_EQUAL=30
+    GREATER_EQUAL=31
+    OR=32
+    AND=33
+    NOT=34
+    INCREMENT=35
+    DECREMENT=36
+    ASSIGN=37
+    MEMBER_ACCESS=38
+    LSQUARE_BR=39
+    RSQUARE_BR=40
+    LCURL_BR=41
+    RCURL_BR=42
+    LPAREN=43
+    RPAREN=44
+    SEMI_COLON=45
+    COMMA=46
+    COLON=47
+    INT_LIT=48
+    FLOAT_LIT=49
+    STRING_LIT=50
+    ID=51
     UNCLOSE_STRING=52
     ERROR_CHAR=53
 
@@ -408,7 +408,7 @@ class TyCParser ( Parser ):
             self.state = 115
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [10, 13, 15, 16, 18, 50]:
+            if token in [11, 14, 16, 17, 19, 51]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 111
                 self.decl()
@@ -460,12 +460,12 @@ class TyCParser ( Parser ):
             self.state = 119
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [16]:
+            if token in [17]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 117
                 self.struct_decl()
                 pass
-            elif token in [10, 13, 15, 18, 50]:
+            elif token in [11, 14, 16, 19, 51]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 118
                 self.func_decl()
@@ -570,14 +570,14 @@ class TyCParser ( Parser ):
             self.state = 132
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [10, 13, 15, 50]:
+            if token in [11, 14, 16, 51]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 128
                 self.member()
                 self.state = 129
                 self.member_list()
                 pass
-            elif token in [41]:
+            elif token in [42]:
                 self.enterOuterAlt(localctx, 2)
 
                 pass
@@ -775,12 +775,12 @@ class TyCParser ( Parser ):
             self.state = 153
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [10, 13, 15, 50]:
+            if token in [11, 14, 16, 51]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 151
                 self.param_prime()
                 pass
-            elif token in [43]:
+            elif token in [44]:
                 self.enterOuterAlt(localctx, 2)
 
                 pass
@@ -962,12 +962,12 @@ class TyCParser ( Parser ):
             self.state = 171
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [4, 5, 7, 10, 11, 12, 13, 14, 15, 17, 19, 20, 21, 33, 34, 35, 40, 42, 47, 48, 49, 50]:
+            if token in [5, 6, 8, 11, 12, 13, 14, 15, 16, 18, 20, 21, 22, 34, 35, 36, 41, 43, 48, 49, 50, 51]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 169
                 self.stmt_prime()
                 pass
-            elif token in [6, 8, 41]:
+            elif token in [7, 9, 42]:
                 self.enterOuterAlt(localctx, 2)
 
                 pass
@@ -1200,11 +1200,11 @@ class TyCParser ( Parser ):
             self.state = 193
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [10, 13, 15, 50]:
+            if token in [11, 14, 16, 51]:
                 self.state = 191
                 self.typ()
                 pass
-            elif token in [4]:
+            elif token in [5]:
                 self.state = 192
                 self.match(TyCParser.AUTO)
                 pass
@@ -1216,13 +1216,13 @@ class TyCParser ( Parser ):
             self.state = 199
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [36]:
+            if token in [37]:
                 self.state = 196
                 self.match(TyCParser.ASSIGN)
                 self.state = 197
                 self.expr()
                 pass
-            elif token in [44]:
+            elif token in [45]:
                 pass
             else:
                 raise NoViableAltException(self)
@@ -1468,11 +1468,11 @@ class TyCParser ( Parser ):
             self.state = 228
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [20, 21, 33, 34, 35, 40, 42, 47, 48, 49, 50]:
+            if token in [21, 22, 34, 35, 36, 41, 43, 48, 49, 50, 51]:
                 self.state = 226
                 self.expr()
                 pass
-            elif token in [44]:
+            elif token in [45]:
                 pass
             else:
                 raise NoViableAltException(self)
@@ -1482,11 +1482,11 @@ class TyCParser ( Parser ):
             self.state = 233
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [34, 35, 50]:
+            if token in [35, 36, 51]:
                 self.state = 231
                 self.for_update()
                 pass
-            elif token in [43]:
+            elif token in [44]:
                 pass
             else:
                 raise NoViableAltException(self)
@@ -1690,11 +1690,11 @@ class TyCParser ( Parser ):
             self.state = 255
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [34, 35]:
+            if token in [35, 36]:
                 self.state = 253
                 self.left_increment_decrement()
                 pass
-            elif token in [50]:
+            elif token in [51]:
                 self.state = 254
                 self.right_increment_decrement()
                 pass
@@ -1741,7 +1741,7 @@ class TyCParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 257
             _la = self._input.LA(1)
-            if not(_la==34 or _la==35):
+            if not(_la==35 or _la==36):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1790,7 +1790,7 @@ class TyCParser ( Parser ):
             self.match(TyCParser.ID)
             self.state = 261
             _la = self._input.LA(1)
-            if not(_la==34 or _la==35):
+            if not(_la==35 or _la==36):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1904,13 +1904,13 @@ class TyCParser ( Parser ):
             self.state = 276
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [8]:
+            if token in [9]:
                 self.state = 272
                 self.switch_default()
                 self.state = 273
                 self.switch_case_list()
                 pass
-            elif token in [41]:
+            elif token in [42]:
                 pass
             else:
                 raise NoViableAltException(self)
@@ -1953,14 +1953,14 @@ class TyCParser ( Parser ):
             self.state = 282
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [6]:
+            if token in [7]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 278
                 self.switch_case()
                 self.state = 279
                 self.switch_case_list()
                 pass
-            elif token in [8, 41]:
+            elif token in [9, 42]:
                 self.enterOuterAlt(localctx, 2)
 
                 pass
@@ -2086,7 +2086,7 @@ class TyCParser ( Parser ):
             elif la_ == 2:
                 self.state = 292
                 _la = self._input.LA(1)
-                if not(_la==20 or _la==21):
+                if not(_la==21 or _la==22):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -2283,11 +2283,11 @@ class TyCParser ( Parser ):
             self.state = 316
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [20, 21, 33, 34, 35, 40, 42, 47, 48, 49, 50]:
+            if token in [21, 22, 34, 35, 36, 41, 43, 48, 49, 50, 51]:
                 self.state = 314
                 self.expr()
                 pass
-            elif token in [44]:
+            elif token in [45]:
                 pass
             else:
                 raise NoViableAltException(self)
@@ -2587,7 +2587,7 @@ class TyCParser ( Parser ):
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                     self.state = 356
                     _la = self._input.LA(1)
-                    if not(_la==25 or _la==26):
+                    if not(_la==26 or _la==27):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
@@ -2668,7 +2668,7 @@ class TyCParser ( Parser ):
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                     self.state = 367
                     _la = self._input.LA(1)
-                    if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 2013265920) != 0)):
+                    if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 4026531840) != 0)):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
@@ -2743,7 +2743,7 @@ class TyCParser ( Parser ):
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                     self.state = 378
                     _la = self._input.LA(1)
-                    if not(_la==20 or _la==21):
+                    if not(_la==21 or _la==22):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
@@ -2821,7 +2821,7 @@ class TyCParser ( Parser ):
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                     self.state = 389
                     _la = self._input.LA(1)
-                    if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 29360128) != 0)):
+                    if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 58720256) != 0)):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
@@ -2880,11 +2880,11 @@ class TyCParser ( Parser ):
             self.state = 399
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [20, 21, 33]:
+            if token in [21, 22, 34]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 396
                 _la = self._input.LA(1)
-                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 8593080320) != 0)):
+                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 17186160640) != 0)):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -2892,7 +2892,7 @@ class TyCParser ( Parser ):
                 self.state = 397
                 self.expr7()
                 pass
-            elif token in [34, 35, 40, 42, 47, 48, 49, 50]:
+            elif token in [35, 36, 41, 43, 48, 49, 50, 51]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 398
                 self.expr8()
@@ -2945,11 +2945,11 @@ class TyCParser ( Parser ):
             self.state = 404
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [34, 35]:
+            if token in [35, 36]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 401
                 _la = self._input.LA(1)
-                if not(_la==34 or _la==35):
+                if not(_la==35 or _la==36):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -2957,7 +2957,7 @@ class TyCParser ( Parser ):
                 self.state = 402
                 self.expr8()
                 pass
-            elif token in [40, 42, 47, 48, 49, 50]:
+            elif token in [41, 43, 48, 49, 50, 51]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 403
                 self.expr9(0)
@@ -3029,7 +3029,7 @@ class TyCParser ( Parser ):
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                     self.state = 410
                     _la = self._input.LA(1)
-                    if not(_la==34 or _la==35):
+                    if not(_la==35 or _la==36):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
@@ -3257,7 +3257,7 @@ class TyCParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 439
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 1125899906884608) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 2251799813769216) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -3345,12 +3345,12 @@ class TyCParser ( Parser ):
             self.state = 448
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [20, 21, 33, 34, 35, 40, 42, 47, 48, 49, 50]:
+            if token in [21, 22, 34, 35, 36, 41, 43, 48, 49, 50, 51]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 446
                 self.args()
                 pass
-            elif token in [43]:
+            elif token in [44]:
                 self.enterOuterAlt(localctx, 2)
 
                 pass
@@ -3458,11 +3458,11 @@ class TyCParser ( Parser ):
             self.state = 460
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [20, 21, 33, 34, 35, 40, 42, 47, 48, 49, 50]:
+            if token in [21, 22, 34, 35, 36, 41, 43, 48, 49, 50, 51]:
                 self.state = 458
                 self.structmem_list()
                 pass
-            elif token in [41]:
+            elif token in [42]:
                 pass
             else:
                 raise NoViableAltException(self)

@@ -119,6 +119,8 @@ structmem_list: expr COMMA structmem_list | expr;
 // *** PARSER ***
 
 // *** LEXER ***
+// Errors
+ILLEGAL_ESCAPE: '"' (~["\\\r\n] | ESC_SEQ)* '\\' ~["\\bfrnt] '"' {self.text = self.text[1:]};  // a backslash followed by an undefined character
 
 // White spaces and comments
 WS : [ \t\r\n\f]+ -> skip ; // skip spaces, tabs
@@ -197,14 +199,13 @@ fragment EXP: [eE] [+-]? [1-9] [0-9]*;
 // The other side" -- not allowed
 // The lexer sees the "\" and look for the next allowed escape sequence [bfrnt["][\]]. So if you write \b, \n, \t 
 // The lexer will take this as literal
-STRING_LIT: '"' (~["\\\r\n] | ESC_SEQ)* '"';
+STRING_LIT: '"' (~["\\\r\n] | ESC_SEQ)* '"' {self.text = self.text[1:-1]};
 fragment ESC_SEQ: '\\' [bfrnt"\\];
 
 // Identifiers
 ID: [a-zA-Z_] [0-9a-zA-Z_]*;
 
-ILLEGAL_ESCAPE: '"' (~["\\\r\n] | ESC_SEQ)* '\\' ~["\\bfrnt] '"';  // a backslash followed by an undefined character
-UNCLOSE_STRING: '"' (~["\\\r\n] | ESC_SEQ)* '\\'?;
+UNCLOSE_STRING: '"' (~["\\\r\n] | ESC_SEQ)* '\\'? {self.text = self.text[1:]};
 ERROR_CHAR: .;  // at the end to catch all the undefined characters
 
 // *** LEXER ***
