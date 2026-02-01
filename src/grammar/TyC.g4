@@ -71,12 +71,17 @@ if_stmt: IF LPAREN expr RPAREN stmt (ELSE stmt | );
 whl_stmt: WHILE LPAREN expr RPAREN stmt;
 
 // !NOTE: <update> should check for assign, increment, decrement in parser or should it be in the AST generation step
-for_stmt: FOR LPAREN for_init (expr | ) SEMI_COLON (expr | ) RPAREN stmt;
+for_stmt: FOR LPAREN for_init (expr | ) SEMI_COLON (for_update | ) RPAREN stmt;
 for_init: var_decl | expr SEMI_COLON | SEMI_COLON;  // !NOTE: <init> var_decl should check for declare and assign at the same time
+for_update: (for_assign | for_increment_decrement);
+for_assign: ID ASSIGN expr;
+for_increment_decrement: (left_increment_decrement | right_increment_decrement);
+left_increment_decrement: (INCREMENT | DECREMENT) ID;
+right_increment_decrement: ID (INCREMENT | DECREMENT);
 
-switch_stmt: SWITCH LPAREN expr RPAREN LCURL_BR switch_body  RCURL_BR;
-switch_body: switch_section switch_body | ;
-switch_section: switch_case | switch_default;  // at this point, we allow multiple default. This error will be catched in AST generation step
+switch_stmt: SWITCH LPAREN expr RPAREN LCURL_BR switch_body RCURL_BR;
+switch_body: switch_case_list (switch_default switch_case_list | );
+switch_case_list: switch_case switch_case_list | ;
 switch_case: CASE case_expression COLON (stmt_list | );
 case_expression: (INT_LIT | (ADD | SUB) INT_LIT | LPAREN expr RPAREN | expr);
 switch_default: DEFAULT COLON (stmt_list | );
@@ -108,10 +113,8 @@ typ: INT | FLOAT | STRING | ID;  // no auto keyword
 func_call: ID LPAREN arg_list RPAREN;
 arg_list: args | ;
 args: expr COMMA args | expr;
-struct_lit: LCURL_BR structmember_list RCURL_BR;
-structmember_list: structmember_prime | ;
-structmember_prime: struct_member COMMA structmember_list	| struct_member;
-struct_member: INT_LIT | FLOAT_LIT | STRING_LIT | ID | func_call | LCURL_BR structmember_list RCURL_BR;
+struct_lit: LCURL_BR (structmem_list | ) RCURL_BR;
+structmem_list: expr COMMA structmem_list | expr;
 
 // *** PARSER ***
 
