@@ -46,9 +46,9 @@ param_list: param_prime | ;
 param_prime: param COMMA param_prime | param;
 param: typ ID;
 
-body: LCURL_BR stmt_list RCURL_BR;
-
-stmt_list: stmt stmt_list | stmt;  // stmt_list cannot be empty as the specs doesn't specify
+body: LCURL_BR stmt_list RCURL_BR;  // !NOTE: function body is a block statement, can a block statement be empty?
+stmt_list: stmt_prime | ;
+stmt_prime: stmt stmt_list | stmt;  // stmt_list cannot be empty as the specs doesn't specify
 stmt: (
     var_decl 
   | block_stmt 

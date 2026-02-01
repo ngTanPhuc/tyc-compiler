@@ -27,7 +27,7 @@ def test_002():
 
 def test_003():
 	source = "int main() {}"
-	expect = "Error on line 1 col 12: }"
+	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_004():
@@ -145,98 +145,149 @@ def test_020():
 	assert Parser(source).parse() == expect
 
 def test_021():
-	source = ""
-	expect = "success"
+	source = "struct {int a;};"
+	expect = "Error on line 1 col 7: {"
 	assert Parser(source).parse() == expect
 
 def test_022():
-	source = ""
-	expect = "success"
+	source = "struct A {int a, y;};"
+	expect = "Error on line 1 col 15: ,"
 	assert Parser(source).parse() == expect
 
 def test_023():
-	source = ""
-	expect = "success"
+	source = "struct A {int a; void foo() {};};"
+	expect = "Error on line 1 col 17: void"
 	assert Parser(source).parse() == expect
 
 def test_024():
-	source = ""
-	expect = "success"
+	source = "struct A {int a[10];};"
+	expect = "Error on line 1 col 15: ["
 	assert Parser(source).parse() == expect
 
 def test_025():
-	source = ""
-	expect = "success"
+	source = "struct A {float while;};"
+	expect = "Error on line 1 col 16: while"
 	assert Parser(source).parse() == expect
 
 def test_026():
-	source = ""
-	expect = "success"
+	source = "struct int {int a;}"
+	expect = "Error on line 1 col 7: int"
 	assert Parser(source).parse() == expect
 
 def test_027():
-	source = ""
-	expect = "success"
+	source = """
+  struct A
+	int a;
+	float b;
+	};
+  """
+	expect = "Error on line 3 col 1: int"
 	assert Parser(source).parse() == expect
 
 def test_028():
-	source = ""
+	source = """
+  struct A {
+	// This is a line comment
+	/* This is a block comment */
+	};
+  """
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_029():
-	source = ""
+	source = """
+  struct A {
+	int x;
+	float y;
+	};
+	
+	struct B {
+	A a;
+	string C;
+	};
+	
+	void main() {
+	B b = {{1, 2.8}, "hello world"};
+	}
+  """
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_030():
-	source = ""
-	expect = "success"
+	source = "struct A {int a; ;};"
+	expect = "Error on line 1 col 17: ;"
 	assert Parser(source).parse() == expect
 
 def test_031():
-	source = ""
+	source = """
+  void foo() {}
+	void main() {}
+  """
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_032():
-	source = ""
+	source = """
+  void foo(int x, float y) {} 
+  """
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_033():
-	source = ""
+	source = """
+  foo(int a, float b) {
+    return a + b;
+	}
+  """
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_034():
-	source = ""
+	source = """
+  struct A {int x; int y;};
+	A foo() {
+    A a = {1, 2};
+		return a;
+	}
+  """
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_035():
-	source = ""
+	source = """
+  struct A {int x; int y;};
+  float foo(A a) {}
+  """
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_036():
-	source = ""
+	source = """
+	void main() { 
+	  // This is a line comment
+		/* This is a block comment */
+	}
+	"""
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_037():
-	source = ""
-	expect = "success"
+	source = "void main() { // This is a line comment but on the same line as the bracket}"
+	expect = "Error on line 1 col 76: <EOF>"
 	assert Parser(source).parse() == expect
 
 def test_038():
-	source = ""
-	expect = "success"
+	source = "void foo(auto a) {}"
+	expect = "Error on line 1 col 9: auto"
 	assert Parser(source).parse() == expect
 
 def test_039():
-	source = ""
-	expect = "success"
+	source = """
+  (int x, int y) {
+    return x + y;
+	}
+  """
+	expect = "Error on line 2 col 2: ("
 	assert Parser(source).parse() == expect
 
 def test_040():
@@ -245,63 +296,68 @@ def test_040():
 	assert Parser(source).parse() == expect
 
 def test_041():
-	source = ""
-	expect = "success"
+	source = "void main {}"
+	expect = "Error on line 1 col 10: {"
 	assert Parser(source).parse() == expect
 
 def test_042():
-	source = ""
-	expect = "success"
+	source = """
+  void outer() {
+    int inner() {
+		}
+	}
+  """
+	expect = "Error on line 3 col 13: ("
 	assert Parser(source).parse() == expect
 
 def test_043():
-	source = ""
-	expect = "success"
+	source = "void main(int x = 8) {}"
+	expect = "Error on line 1 col 16: ="
 	assert Parser(source).parse() == expect
 
 def test_044():
-	source = ""
+	source = "void foo(int x, float y, string z) {}"
 	expect = "success"
 	assert Parser(source).parse() == expect
 
 def test_045():
-	source = ""
-	expect = "success"
+	source = "void foo(int x)"
+	expect = "Error on line 1 col 15: <EOF>"
 	assert Parser(source).parse() == expect
 
 def test_046():
-	source = ""
-	expect = "success"
+	source = "void foo(int a[10]) {}"
+	expect = "Error on line 1 col 14: ["
 	assert Parser(source).parse() == expect
 
 def test_047():
-	source = ""
-	expect = "success"
+	source = "int float() {}"
+	expect = "Error on line 1 col 4: float"
 	assert Parser(source).parse() == expect
 
 def test_048():
-	source = ""
-	expect = "success"
+	source = "int foo(int, float y) {}"
+	expect = "Error on line 1 col 11: ,"
 	assert Parser(source).parse() == expect
 
 def test_049():
-	source = ""
-	expect = "success"
+	source = "int foo(float x; float y) {}"
+	expect = "Error on line 1 col 15: ;"
 	assert Parser(source).parse() == expect
 
 def test_050():
-	source = ""
-	expect = "success"
+	source = "int foo() {};"
+	expect = "Error on line 1 col 12: ;"
 	assert Parser(source).parse() == expect
 
 def test_051():
-	source = ""
-	expect = "success"
+	source = "int foo(int x, int y,) {}"
+	expect = "Error on line 1 col 21: )"
 	assert Parser(source).parse() == expect
 
 def test_052():
-	source = ""
-	expect = "success"
+	source = "auto foo() {}"
+	expect = "Error on line 1 col 0: auto"
 	assert Parser(source).parse() == expect
 
 def test_053():
