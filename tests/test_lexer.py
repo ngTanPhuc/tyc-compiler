@@ -15,578 +15,610 @@ def test_lexer_placeholder():
     # TODO: Add actual test assertions
     assert True
 
+def test_keyword_auto():
+    """1. Keyword"""
+    tokenizer = Tokenizer("auto")
+    assert tokenizer.get_tokens_as_string() == "auto,<EOF>"
+
+
+def test_operator_assign():
+    """2. Operator"""
+    tokenizer = Tokenizer("=")
+    assert tokenizer.get_tokens_as_string() == "=,<EOF>"
+
+
+def test_separator_semi():
+    """3. Separator"""
+    tokenizer = Tokenizer(";")
+    assert tokenizer.get_tokens_as_string() == ";,<EOF>"
+
+
+def test_integer_single_digit():
+    """4. Integer literal"""
+    tokenizer = Tokenizer("5")
+    assert tokenizer.get_tokens_as_string() == "5,<EOF>"
+
+
+def test_float_decimal():
+    """5. Float literal"""
+    tokenizer = Tokenizer("3.14")
+    assert tokenizer.get_tokens_as_string() == "3.14,<EOF>"
+
+
+def test_string_simple():
+    """6. String literal"""
+    tokenizer = Tokenizer('"hello"')
+    assert tokenizer.get_tokens_as_string() == "hello,<EOF>"
+
+
+def test_identifier_simple():
+    """7. Identifier"""
+    tokenizer = Tokenizer("x")
+    assert tokenizer.get_tokens_as_string() == "x,<EOF>"
+
+
+def test_line_comment():
+    """8. Line comment"""
+    tokenizer = Tokenizer("// This is a comment")
+    assert tokenizer.get_tokens_as_string() == "<EOF>"
+
+
+def test_integer_in_expression():
+    """9. Mixed: integers and operator"""
+    tokenizer = Tokenizer("5+10")
+    assert tokenizer.get_tokens_as_string() == "5,+,10,<EOF>"
+
+
+def test_complex_expression():
+    """10. Complex: variable declaration"""
+    tokenizer = Tokenizer("auto x = 5 + 3 * 2;")
+    assert tokenizer.get_tokens_as_string() == "auto,x,=,5,+,3,*,2,;,<EOF>"
+
 # *** COMMENT ***
 def test_001():
 	source = "/* This is a block comment \nHello world! */"
-	expect = "EOF"
+	expect = "<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_002():
 	source = "// This is a line comment"
-	expect = "EOF"
+	expect = "<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_003():
 	source = "/* This is to test greedy */ abc /* bla bla bla */"
-	expect = "ID,abc,EOF"
+	expect = "abc,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_004():
 	source = "/* bla bla bla // bla bla bla will skip everything*/"
-	expect = "EOF"
+	expect = "<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_005():
 	source = "// Line comment bla bla bla */ /*"
-	expect = "EOF"
+	expect = "<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_006():
 	source = "/* Spanning block comment\nthat goes to a new line hehehe */" 
-	expect = "EOF"
+	expect = "<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_007():
 	source = "abc // line comment with an ID"
-	expect = "ID,abc,EOF"
+	expect = "abc,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_008():
 	source = "// A line comment and then goes to a newline\n"
-	expect = "EOF"
+	expect = "<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_009():
 	source = "// Another line comment and then have a carrigage return\r"
-	expect = "EOF"
+	expect = "<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_010():
 	source = "//"
-	expect = "EOF"
+	expect = "<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_011():
 	source = "/**/"
-	expect = "EOF"
+	expect = "<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_012():
 	source = "// Below this is an ID\nabc"
-	expect = "ID,abc,EOF"
+	expect = "abc,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_013():
 	source = "/* 2 * 3 */"
-	expect = "EOF"
+	expect = "<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_014():
 	source = "/********/"
-	expect = "EOF"
+	expect = "<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_015():
 	source = "/* /* Nested block comment */ */"
-	expect = "MUL,*,DIV,/,EOF"
+	expect = "*,/,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_016():
 	source = '"// This is not a comment but a literal string, quote takes over comment"'
-	expect = 'STRING_LIT,"// This is not a comment but a literal string, quote takes over comment",EOF'
+	expect = "// This is not a comment but a literal string, quote takes over comment,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 # *** IDENTIFIER ***
 def test_017():
 	source = "var"
-	expect = "ID,var,EOF"
+	expect = "var,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_018():
 	source = "myVar"
-	expect = "ID,myVar,EOF"
+	expect = "myVar,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_019():
 	source = "my_var"
-	expect = "ID,my_var,EOF"
+	expect = "my_var,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_020():
 	source = "_myVar"
-	expect = "ID,_myVar,EOF"
+	expect = "_myVar,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_021():
 	source = "myVar_"
-	expect = "ID,myVar_,EOF"
+	expect = "myVar_,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_022():
 	source = "thisWillBe-threeTokens"
-	expect = "ID,thisWillBe,SUB,-,ID,threeTokens,EOF"
+	expect = "thisWillBe,-,threeTokens,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_023():
 	source = "_"
-	expect = "ID,_,EOF"
+	expect = "_,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_024():
 	source = "__init__"
-	expect = "ID,__init__,EOF"
+	expect = "__init__,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_025():
 	source = "If"
-	expect = "ID,If,EOF"
+	expect = "If,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_026():
 	source = "myvar123"
-	expect = "ID,myvar123,EOF"
+	expect = "myvar123,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_027():
 	source = "my123var"
-	expect = "ID,my123var,EOF"
+	expect = "my123var,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_028():
 	source = "1twoTokens"
-	expect = "INT_LIT,1,ID,twoTokens,EOF"
+	expect = "1,twoTokens,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_029():
 	source = "Ho+wheels"
-	expect = "ID,Ho,ADD,+,ID,wheels,EOF"
+	expect = "Ho,+,wheels,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 # *** KEYWORD ***
 def test_030():
 	source = "auto break case continue default else float for if int return string struct switch void while"
-	expect = "AUTO,auto,BREAK,break,CASE,case,CONTINUE,continue,DEFAULT,default,ELSE,else,FLOAT,float,FOR,for,IF,if,INT,int,RETURN,return,STRING,string,STRUCT,struct,SWITCH,switch,VOID,void,WHILE,while,EOF"
+	expect = "auto,break,case,continue,default,else,float,for,if,int,return,string,struct,switch,void,while,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_031():
 	source = "int a = 3;"
-	expect = "INT,int,ID,a,ASSIGN,=,INT_LIT,3,SEMI_COLON,;,EOF"
+	expect = "int,a,=,3,;,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_032():
 	source = "elseif"
-	expect = "ID,elseif,EOF"
+	expect = "elseif,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_033():
 	source = "float2"
-	expect = "ID,float2,EOF"
+	expect = "float2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_034():
 	source = '"return;"'
-	expect = 'STRING_LIT,"return;",EOF'
+	expect = "return;,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_035():
 	source = "if// I get an A in PPL, I will celebrate\n"
-	expect = "IF,if,EOF"
+	expect = "if,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 # *** OPERATOR ***
 def test_036():
 	source = "+ - * / % == != < > <= >= || && ! ++ -- = ."
-	expect = "ADD,+,SUB,-,MUL,*,DIV,/,MOD,%,EQUAL,==,NOT_EQUAL,!=,LESS,<,GREATER,>,LESS_EQUAL,<=,GREATER_EQUAL,>=,OR,||,AND,&&,NOT,!,INCREMENT,++,DECREMENT,--,ASSIGN,=,MEMBER_ACCESS,.,EOF"
+	expect = "+,-,*,/,%,==,!=,<,>,<=,>=,||,&&,!,++,--,=,.,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_037():
 	source = "/ *"
-	expect = "DIV,/,MUL,*,EOF"
+	expect = "/,*,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_038():
 	source = "* /"
-	expect = "MUL,*,DIV,/,EOF"
+	expect = "*,/,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_039():
 	source = "<*"
-	expect = "LESS,<,MUL,*,EOF"
+	expect = "<,*,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_040():
 	source = "!===>="
-	expect = "NOT_EQUAL,!=,EQUAL,==,GREATER_EQUAL,>=,EOF"
+	expect = "!=,==,>=,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_041():
 	source = "1-2"
-	expect = "INT_LIT,1,SUB,-,INT_LIT,2,EOF"
+	expect = "1,-,2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_042():
 	source = "==="
-	expect = "EQUAL,==,ASSIGN,=,EOF"
+	expect = "==,=,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_043():
 	source = "1+2-3*4/5"
-	expect = "INT_LIT,1,ADD,+,INT_LIT,2,SUB,-,INT_LIT,3,MUL,*,INT_LIT,4,DIV,/,INT_LIT,5,EOF"
+	expect = "1,+,2,-,3,*,4,/,5,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_044():
 	source = "1 -2"
-	expect = "INT_LIT,1,SUB,-,INT_LIT,2,EOF"
+	expect = "1,-,2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_045():
 	source = "1 - 2"
-	expect = "INT_LIT,1,SUB,-,INT_LIT,2,EOF"
+	expect = "1,-,2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_046():
 	source = "+++"
-	expect = "INCREMENT,++,ADD,+,EOF"
+	expect = "++,+,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_047():
 	source = "- 1"
-	expect = "SUB,-,INT_LIT,1,EOF"
+	expect = "-,1,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_048():
 	source = "-1"
-	expect = "SUB,-,INT_LIT,1,EOF"
+	expect = "-,1,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 # *** SEPARATOR ***
 def test_049():
 	source = "[ ] { } ( ) ; ,"
-	expect = "LSQUARE_BR,[,RSQUARE_BR,],LCURL_BR,{,RCURL_BR,},LPAREN,(,RPAREN,),SEMI_COLON,;,COMMA,,,EOF"
+	expect = "[,],{,},(,),;,,,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_050():
 	source = ";;"
-	expect = "SEMI_COLON,;,SEMI_COLON,;,EOF"
+	expect = ";,;,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_051():
 	source = "a,b,c;"
-	expect = "ID,a,COMMA,,,ID,b,COMMA,,,ID,c,SEMI_COLON,;,EOF"
+	expect = "a,,,b,,,c,;,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_052():
 	source = "else{"
-	expect = "ELSE,else,LCURL_BR,{,EOF"
+	expect = "else,{,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_053():
 	source = "{}"
-	expect = "LCURL_BR,{,RCURL_BR,},EOF"
+	expect = "{,},<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_054():
 	source = "[]"
-	expect = "LSQUARE_BR,[,RSQUARE_BR,],EOF"
+	expect = "[,],<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_055():
 	source = "()"
-	expect = "LPAREN,(,RPAREN,),EOF"
+	expect = "(,),<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_056():
 	source = "((a))"
-	expect = "LPAREN,(,LPAREN,(,ID,a,RPAREN,),RPAREN,),EOF"
+	expect = "(,(,a,),),<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_057():
 	source = '"return;"'
-	expect = 'STRING_LIT,"return;",EOF'
+	expect = "return;,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_058():
 	source = "(int)"
-	expect = "LPAREN,(,INT,int,RPAREN,),EOF"
+	expect = "(,int,),<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_059():
 	source = ")\r"
-	expect = "RPAREN,),EOF"
+	expect = "),<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_060():
 	source = "\t()"
-	expect = "LPAREN,(,RPAREN,),EOF"
+	expect = "(,),<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 # *** LITERAL ***
 def test_061():
 	source = "1 2 3 4 5\f"
-	expect = "INT_LIT,1,INT_LIT,2,INT_LIT,3,INT_LIT,4,INT_LIT,5,EOF"
+	expect = "1,2,3,4,5,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_062():
 	source = "1 -2 5 3 -12345"
-	expect = "INT_LIT,1,SUB,-,INT_LIT,2,INT_LIT,5,INT_LIT,3,SUB,-,INT_LIT,12345,EOF"
+	expect = "1,-,2,5,3,-,12345,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_063():
 	source = "1--2"
-	expect = "INT_LIT,1,DECREMENT,--,INT_LIT,2,EOF"
+	expect = "1,--,2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_064():
 	source = "123."
-	expect = "FLOAT_LIT,123.,EOF"
+	expect = "123.,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_065():
 	source = "123var"
-	expect = "INT_LIT,123,ID,var,EOF"
+	expect = "123,var,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_066():
 	source = "99else"
-	expect = "INT_LIT,99,ELSE,else,EOF"
+	expect = "99,else,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_067():
 	source = "1e1"
-	expect = "FLOAT_LIT,1e1,EOF"
+	expect = "1e1,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_068():
 	source = "007"
-	expect = "INT_LIT,007,EOF"
+	expect = "007,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_069():
 	source = "1 2"
-	expect = "INT_LIT,1,INT_LIT,2,EOF"
+	expect = "1,2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_070():
 	source = "+1"
-	expect = "ADD,+,INT_LIT,1,EOF"
+	expect = "+,1,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_071():
 	source = "1.23"
-	expect = "FLOAT_LIT,1.23,EOF"
+	expect = "1.23,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_072():
 	source = ".0123"
-	expect = "FLOAT_LIT,.0123,EOF"
+	expect = ".0123,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_073():
 	source = "1.010"
-	expect = "FLOAT_LIT,1.010,EOF"
+	expect = "1.010,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_074():
 	source = "1.12E2"
-	expect = "FLOAT_LIT,1.12E2,EOF"
+	expect = "1.12E2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_075():
 	source = "0.0"
-	expect = "FLOAT_LIT,0.0,EOF"
+	expect = "0.0,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_076():
 	source = "1.5e-10"
-	expect = "FLOAT_LIT,1.5e-10,EOF"
+	expect = "1.5e-10,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_077():
 	source = "1e+2"
-	expect = "FLOAT_LIT,1e+2,EOF"
+	expect = "1e+2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_078():
 	source = "1.2.3"
-	expect = "FLOAT_LIT,1.2,FLOAT_LIT,.3,EOF"
+	expect = "1.2,.3,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_079():
 	source = "1.2.3."
-	expect = "FLOAT_LIT,1.2,FLOAT_LIT,.3,MEMBER_ACCESS,.,EOF"
+	expect = "1.2,.3,.,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_080():
 	source = "1e"
-	expect = "INT_LIT,1,ID,e,EOF"
+	expect = "1,e,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_081():
 	source = "1.E"
-	expect = "FLOAT_LIT,1.,ID,E,EOF"
+	expect = "1.,E,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_082():
 	source = "1..2"
-	expect = "FLOAT_LIT,1.,FLOAT_LIT,.2,EOF"
+	expect = "1.,.2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_083():
 	source = '"Hello World"'
-	expect = 'STRING_LIT,"Hello World",EOF'
+	expect = "Hello World,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_084():
 	source = '""'
-	expect = 'STRING_LIT,"",EOF'
+	expect = ",<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_085():
 	source = r'"String with a newline\nA new line"'
-	expect = r'STRING_LIT,"String with a newline\nA new line",EOF'
+	expect = r'String with a newline\nA new line,<EOF>'
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_086():
 	source = r'"Er sagt \"Hallo Welt\""'
-	expect = r'STRING_LIT,"Er sagt \"Hallo Welt\"",EOF'
+	expect = r'Er sagt \"Hallo Welt\",<EOF>'
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_087():
 	source = r'"This is a string with a tab \t"'
-	expect = r'STRING_LIT,"This is a string with a tab \t",EOF'
+	expect = r'This is a string with a tab \t,<EOF>'
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_088():
 	source = '"+"'
-	expect = 'STRING_LIT,"+",EOF'
+	expect = '+,<EOF>'
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_089():
 	source = r'"\r\n"'
-	expect = r'STRING_LIT,"\r\n",EOF'
+	expect = r'\r\n,<EOF>'
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_090():
 	source = '"A" "B"'
-	expect = 'STRING_LIT,"A",STRING_LIT,"B",EOF'
+	expect = 'A,B,<EOF>'
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_091():
 	source = '// "A string inside a comment"'
-	expect = "EOF"
+	expect = "<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 
 # *** ERROR ***
 def test_092():
 	source = "#"
-	try:
-		Tokenizer(source).get_tokens_as_string()
-		assert False, "Expected ErrorToken but no exception was raised"
-	except Exception as e:
-		assert str(e) == "Error Token #"
+	expect = "Error Token #"
+	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_093():
 	source = "$"
-	try:
-		Tokenizer(source).get_tokens_as_string()
-		assert False, "Expected ErrorToken but no exception was raised"
-	except Exception as e:
-		assert str(e) == "Error Token $"
+	expect = "Error Token $"
+	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_094():
 	source = "int @"
-	try:
-		Tokenizer(source).get_tokens_as_string()
-		assert False, "Expected ErrorToken but no exception was raised"
-	except Exception as e:
-		assert str(e) == "Error Token @"
+	expect = "int,Error Token @"
+	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_095():
 	source = '"This is unclosed string'
-	try:
-		Tokenizer(source).get_tokens_as_string()
-		assert False, "Expected UncloseString but no exception was raised"
-	except Exception as e:
-		assert str(e) == 'Unclosed String: "This is unclosed string'
+	expect = 'Unclosed String: This is unclosed string'
+	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_096():
 	source = '"Another unclosed string but with a newline\n'
-	try:
-		Tokenizer(source).get_tokens_as_string()
-		assert False, "Expected UncloseString but no exception was raised"
-	except Exception as e:
-		assert str(e) == 'Unclosed String: "Another unclosed string but with a newline'
+	expect = 'Unclosed String: Another unclosed string but with a newline'
+	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_097():
 	source = '"'
-	try:
-		Tokenizer(source).get_tokens_as_string()
-		assert False, "Expected UncloseString but no exception was raised"
-	except Exception as e:
-		assert str(e) == r'Unclosed String: "'
+	expect = r'Unclosed String: '
+	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_098():
 	source = r'"Content with \"'
-	try:
-		Tokenizer(source).get_tokens_as_string()
-		assert False, "Expected UncloseString but no exception was raised"
-	except Exception as e:
-		assert str(e) == r'Unclosed String: "Content with \"'
+	expect = r'Unclosed String: Content with \"'
+	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_099():
 	source = r'"Hello \a"'
-	try:
-		Tokenizer(source).get_tokens_as_string()
-		assert False, "Expected UncloseString but no exception was raised"
-	except Exception as e:
-		assert str(e) == r'Illegal Escape In String: "Hello \a"'
+	expect = r'Illegal Escape In String: Hello \a"'
+	assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_100():
 	source = r'"Space \ "'
-	try:
-		Tokenizer(source).get_tokens_as_string()
-		assert False, "Expected UncloseString but no exception was raised"
-	except Exception as e:
-		assert str(e) == r'Illegal Escape In String: "Space \ "'
+	expect = r'Illegal Escape In String: Space \ "'
+	assert Tokenizer(source).get_tokens_as_string() == expect
 
 # *** EXTEND TESTCASES ***
 def test_101():
 	source = "1-2"  # 3 Tokens
-	expect = "INT_LIT,1,SUB,-,INT_LIT,2,EOF"
+	expect = "1,-,2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 	
 def test_102():
   source = "1 -2"  # 2 Tokens
-  expect = "INT_LIT,1,SUB,-,INT_LIT,2,EOF"
+  expect = "1,-,2,<EOF>"
   assert Tokenizer(source).get_tokens_as_string() == expect
 
 def test_103():
 	source = "1 - 2"
-	expect = "INT_LIT,1,SUB,-,INT_LIT,2,EOF"
+	expect = "1,-,2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 	
 def test_104():
 	source = "1--2"
-	expect = "INT_LIT,1,DECREMENT,--,INT_LIT,2,EOF"
+	expect = "1,--,2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 	
 def test_105():
 	source = "1-- 2"
-	expect = "INT_LIT,1,DECREMENT,--,INT_LIT,2,EOF"
+	expect = "1,--,2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 	
 def test_106():
 	source = "1 - -2"
-	expect = "INT_LIT,1,SUB,-,SUB,-,INT_LIT,2,EOF"
+	expect = "1,-,-,2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 	
 def test_107():
 	source = "---2"
-	expect = "DECREMENT,--,SUB,-,INT_LIT,2,EOF"
+	expect = "--,-,2,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 	
 def test_108():
 	source = "+++"
-	expect = "INCREMENT,++,ADD,+,EOF"
+	expect = "++,+,<EOF>"
 	assert Tokenizer(source).get_tokens_as_string() == expect
 	
