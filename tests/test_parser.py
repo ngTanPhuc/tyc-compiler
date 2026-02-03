@@ -1010,3 +1010,104 @@ def test_103():
 	"""
 	expect = "Error on line 3 col 5: ;"
 	assert Parser(source).parse() == expect
+	
+# *** EXTEND TESTCASES ***
+def test_104():
+	source = """
+	void main() {
+    A.a = 1;
+	}
+	"""
+	expect = "success"
+	assert Parser(source).parse() == expect
+	
+def test_105():
+	source = """
+	void main() {
+    foo(2.8).a = 1;
+	}
+	"""
+	expect = "success"
+	assert Parser(source).parse() == expect
+	
+def test_106():
+	source = """
+	void main() {
+    auto ayo = A.a;
+	}
+	"""
+	expect = "success"
+	assert Parser(source).parse() == expect
+	
+def test_107():
+	source = """
+	void main() {
+    foo(A.a);
+	}
+	"""
+	expect = "success"
+	assert Parser(source).parse() == expect
+	
+def test_108():
+	source = """
+	void main() {
+    A.a++;
+	}
+	"""
+	expect = "success"
+	assert Parser(source).parse() == expect
+
+def test_109():
+	source = """
+	void main() {
+    (A.a).b = "Hello World!";
+	}
+	"""
+	expect = "success"
+	assert Parser(source).parse() == expect
+	
+def test_110():
+	source = """
+	void main() {
+    1.a = 2;
+	}
+	"""
+	expect = "Error on line 3 col 6: a"
+	assert Parser(source).parse() == expect
+	
+def test_111():
+	source = """
+	void main() {
+    rect.topLeft.x = 0;
+    auto val = machine.part.id;
+  }
+	"""
+	expect = "success"
+	assert Parser(source).parse() == expect
+	
+def test_112():
+	source = """
+	void main() {
+    a.;
+	}
+	"""
+	expect = "Error on line 3 col 6: ;"
+	assert Parser(source).parse() == expect
+	
+def test_113():
+	source = """
+	void main() {
+    foo({2.5, "abc"});
+	}
+	"""
+	expect = "success"
+	assert Parser(source).parse() == expect
+	
+def test_110():
+	source = """
+	void main() {
+    a.++;
+	}
+	"""
+	expect = "Error on line 3 col 6: ++"
+	assert Parser(source).parse() == expect
