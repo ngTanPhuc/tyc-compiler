@@ -51,16 +51,16 @@ stmt_list: stmt_prime | ;
 stmt_prime: stmt stmt_prime | stmt;
 stmt: (
     var_decl 
-  | block_stmt 
-  | if_stmt 
-  | whl_stmt 
-  | for_stmt 
-  | switch_stmt 
-  | break_stmt 
-  | cont_stmt 
-  | return_stmt 
-  | expr_stmt
-  );
+    | block_stmt 
+    | if_stmt 
+    | whl_stmt 
+    | for_stmt 
+    | switch_stmt 
+    | break_stmt 
+    | cont_stmt 
+    | return_stmt 
+    | expr_stmt
+    );
 
 var_decl: (typ | AUTO) ID (ASSIGN expr | ) SEMI_COLON;
 
