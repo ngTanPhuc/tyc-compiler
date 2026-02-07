@@ -38,7 +38,7 @@ class ASTGeneration(TyCVisitor):
     def visitStruct_decl(self, ctx):
         """ struct_decl: STRUCT ID LCURL_BR member_list RCURL_BR SEMI_COLON; """
         name = ctx.ID().getText()
-        member_list = self.visit(ctx.member_list)
+        member_list = self.visit(ctx.member_list())
 
         return StructDecl(name, member_list)
     
@@ -49,7 +49,7 @@ class ASTGeneration(TyCVisitor):
         else:
             member = self.visit(ctx.member())
             
-            return [member] + self.visit(ctx.member_list)
+            return [member] + self.visit(ctx.member_list())
     
     def visitMember(self, ctx):
         """ member: typ ID SEMI_COLON; """
@@ -193,8 +193,10 @@ class ASTGeneration(TyCVisitor):
             update = self.visit(ctx.for_update())  # returns an instace of type Expr (PrefixOp, PostfixOp, or AssignExpr)
         else:
             update = None
+            
+        body = self.visit(ctx.stmt())
 
-        return ForStmt(init, condition, update)
+        return ForStmt(init, condition, update, body)
     
     def visitFor_init(self, ctx):
         """ for_init: var_decl | expr_stmt | SEMI_COLON; """
@@ -267,7 +269,7 @@ class ASTGeneration(TyCVisitor):
     def visitSwitch_case_list(self, ctx):
         """ switch_case_list: switch_case switch_case_list | ; """
         if ctx.getChildCount() == 0:
-            return 0
+            return []
         else:
             curr_case = self.visit(ctx.switch_case())  # returns an instance of type CaseStmt
             remaining_cases = self.visit(ctx.switch_case_list())
@@ -350,7 +352,7 @@ class ASTGeneration(TyCVisitor):
             """
             lhs = self.visit(ctx.getChild(0))  # returns an Expr
             op = ctx.getChild(1).getText()
-            rhs = self.visit(ctx.getChild(1))  # returns an Expr
+            rhs = self.visit(ctx.getChild(2))  # returns an Expr
 
             return BinaryOp(lhs, op, rhs)
 
@@ -413,10 +415,10 @@ class ASTGeneration(TyCVisitor):
         if ctx.getChildCount() == 1:
             return self.visit(ctx.expr_primary())
         else:
-            operator = ctx.getChild(1).getText()
-            operand = self.visit(ctx.expr10())  # returns an instance of type Expr
+            obj = self.visit(ctx.expr10())
+            member = ctx.ID().getText()
 
-            return PostfixOp(operator, operand)
+            return MemberAccess(obj, member)
     
     def visitExpr_primary(self, ctx):
         """
@@ -432,11 +434,11 @@ class ASTGeneration(TyCVisitor):
             val = int(ctx.INT_LIT().getText())
             return IntLiteral(val)
         elif ctx.FLOAT_LIT():
-            val = float(ctx.FLOAT_LIT())
+            val = float(ctx.FLOAT_LIT().getText())
             return FloatLiteral(val)
         elif ctx.STRING_LIT():
             val = ctx.STRING_LIT().getText()
-            return StructLiteral(val)
+            return StringLiteral(val)
         elif ctx.ID():
             name = ctx.ID().getText()
             return Identifier(name)
@@ -474,11 +476,14 @@ class ASTGeneration(TyCVisitor):
             return self.visit(ctx.args())  # return a list of Expr
 
     def visitArgs(self, ctx):
+        """ args: expr COMMA args | expr; """
         if ctx.COMMA():
             curr_arg = self.visit(ctx.expr())  # return an instance of type Expr
             remaining_args = self.visit(ctx.args())  # return a list of 
 
             return [curr_arg] + remaining_args
+        else:
+            return [self.visit(ctx.expr())]
 
     def visitStruct_lit(self, ctx):
         """ struct_lit: LCURL_BR (structmem_list | ) RCURL_BR; """
