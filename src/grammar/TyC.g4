@@ -106,7 +106,14 @@ expr7: (NOT | ADD | SUB) expr7 | expr8;
 expr8: (INCREMENT | DECREMENT) expr8 | expr9;
 expr9: expr9 (INCREMENT | DECREMENT) | expr10;
 expr10: expr10 MEMBER_ACCESS ID | expr_primary;
-expr_primary: INT_LIT | FLOAT_LIT | STRING_LIT | ID | LPAREN expr RPAREN | func_call | struct_lit;
+expr_primary: INT_LIT 
+            | FLOAT_LIT 
+            | STRING_LIT 
+            | ID 
+            | LPAREN expr RPAREN 
+            | func_call 
+            | struct_lit
+            ;
 
 // others
 typ: INT | FLOAT | STRING | ID;  // no auto keyword
