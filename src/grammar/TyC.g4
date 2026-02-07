@@ -46,21 +46,21 @@ param_list: param_prime | ;
 param_prime: param COMMA param_prime | param;
 param: typ ID;
 
-body: LCURL_BR stmt_list RCURL_BR;  // !NOTE: function body is a block statement, can a block statement be empty?
+body: LCURL_BR stmt_list RCURL_BR;  // !NOTE: function body is a block statement, can a block statement be empty? Answer: yes, it can be empty!
 stmt_list: stmt_prime | ;
-stmt_prime: stmt stmt_list | stmt;  // stmt_list cannot be empty as the specs doesn't specify
+stmt_prime: stmt stmt_prime | stmt;
 stmt: (
     var_decl 
-  | block_stmt 
-  | if_stmt 
-  | whl_stmt 
-  | for_stmt 
-  | switch_stmt 
-  | break_stmt 
-  | cont_stmt 
-  | return_stmt 
-  | expr_stmt
-  );
+    | block_stmt 
+    | if_stmt 
+    | whl_stmt 
+    | for_stmt 
+    | switch_stmt 
+    | break_stmt 
+    | cont_stmt 
+    | return_stmt 
+    | expr_stmt
+    );
 
 var_decl: (typ | AUTO) ID (ASSIGN expr | ) SEMI_COLON;
 
@@ -70,14 +70,14 @@ if_stmt: IF LPAREN expr RPAREN stmt (ELSE stmt | );
 
 whl_stmt: WHILE LPAREN expr RPAREN stmt;
 
-// !NOTE: <update> should check for assign, increment, decrement in parser or should it be in the AST generation step
+// !NOTE: <update> should check for assign, increment, decrement in parser or should it be in the AST generation step? Answer: in parser just for sure (it can be in the AST gen step too)
 for_stmt: FOR LPAREN for_init (expr | ) SEMI_COLON (for_update | ) RPAREN stmt;
-for_init: var_decl | expr SEMI_COLON | SEMI_COLON;  // !NOTE: <init> var_decl should check for declare and assign at the same time
-for_update: (for_assign | for_increment_decrement);
-for_assign: ID ASSIGN expr;
-for_increment_decrement: (left_increment_decrement | right_increment_decrement);
-left_increment_decrement: (INCREMENT | DECREMENT) ID;
-right_increment_decrement: ID (INCREMENT | DECREMENT);
+for_init: var_decl | expr_stmt | SEMI_COLON;  // !NOTE: <init> var_decl should check for declare and assign at the same time
+for_update: for_lhs ASSIGN expr
+		| for_lhs (INCREMENT | DECREMENT)
+		| (INCREMENT | DECREMENT) for_lhs
+		;
+for_lhs: ID | expr MEMBER_ACCESS ID;
 
 switch_stmt: SWITCH LPAREN expr RPAREN LCURL_BR switch_body RCURL_BR;
 switch_body: switch_case_list (switch_default switch_case_list | );
@@ -106,7 +106,14 @@ expr7: (NOT | ADD | SUB) expr7 | expr8;
 expr8: (INCREMENT | DECREMENT) expr8 | expr9;
 expr9: expr9 (INCREMENT | DECREMENT) | expr10;
 expr10: expr10 MEMBER_ACCESS ID | expr_primary;
-expr_primary: INT_LIT | FLOAT_LIT | STRING_LIT | ID | LPAREN expr RPAREN | func_call | struct_lit;
+expr_primary: INT_LIT 
+            | FLOAT_LIT 
+            | STRING_LIT 
+            | ID 
+            | LPAREN expr RPAREN 
+            | func_call 
+            | struct_lit
+            ;
 
 // others
 typ: INT | FLOAT | STRING | ID;  // no auto keyword
