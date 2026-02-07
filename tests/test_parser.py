@@ -1103,11 +1103,20 @@ def test_113():
 	expect = "success"
 	assert Parser(source).parse() == expect
 	
-def test_110():
+def test_114():
 	source = """
 	void main() {
     a.++;
 	}
 	"""
 	expect = "Error on line 3 col 6: ++"
+	assert Parser(source).parse() == expect
+	
+def test_115():
+	source = """
+	void main() {
+    for(A = {1, 2}; A.x < 1; A.x++) {}
+	}
+	"""
+	expect = "success"
 	assert Parser(source).parse() == expect

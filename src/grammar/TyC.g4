@@ -73,11 +73,11 @@ whl_stmt: WHILE LPAREN expr RPAREN stmt;
 // !NOTE: <update> should check for assign, increment, decrement in parser or should it be in the AST generation step? Answer: in parser just for sure (it can be in the AST gen step too)
 for_stmt: FOR LPAREN for_init (expr | ) SEMI_COLON (for_update | ) RPAREN stmt;
 for_init: var_decl | expr_stmt | SEMI_COLON;  // !NOTE: <init> var_decl should check for declare and assign at the same time
-for_update: for_assign | for_increment_decrement;
-for_assign: ID ASSIGN expr;
-for_increment_decrement: (left_increment_decrement | right_increment_decrement);
-left_increment_decrement: (INCREMENT | DECREMENT) ID;
-right_increment_decrement: ID (INCREMENT | DECREMENT);
+for_update: for_lhs ASSIGN expr
+		| for_lhs (INCREMENT | DECREMENT)
+		| (INCREMENT | DECREMENT) for_lhs
+		;
+for_lhs: ID | expr MEMBER_ACCESS ID;
 
 switch_stmt: SWITCH LPAREN expr RPAREN LCURL_BR switch_body RCURL_BR;
 switch_body: switch_case_list (switch_default switch_case_list | );
