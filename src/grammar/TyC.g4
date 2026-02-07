@@ -70,10 +70,10 @@ if_stmt: IF LPAREN expr RPAREN stmt (ELSE stmt | );
 
 whl_stmt: WHILE LPAREN expr RPAREN stmt;
 
-// !NOTE: <update> should check for assign, increment, decrement in parser or should it be in the AST generation step
+// !NOTE: <update> should check for assign, increment, decrement in parser or should it be in the AST generation step? Answer: in parser just for sure (it can be in the AST gen step too)
 for_stmt: FOR LPAREN for_init (expr | ) SEMI_COLON (for_update | ) RPAREN stmt;
-for_init: var_decl | expr SEMI_COLON | SEMI_COLON;  // !NOTE: <init> var_decl should check for declare and assign at the same time
-for_update: (for_assign | for_increment_decrement);
+for_init: var_decl | expr_stmt | SEMI_COLON;  // !NOTE: <init> var_decl should check for declare and assign at the same time
+for_update: for_assign | for_increment_decrement;
 for_assign: ID ASSIGN expr;
 for_increment_decrement: (left_increment_decrement | right_increment_decrement);
 left_increment_decrement: (INCREMENT | DECREMENT) ID;
